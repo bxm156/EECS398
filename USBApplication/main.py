@@ -1,10 +1,10 @@
 import wx
-from WatterMainFrame import WatterMainFrame
+from ui.WattrMainFrame import WattrMainFrame
 
 
 class watterApp(wx.App):
     def OnInit(self):
-        self.m_frame = WatterMainFrame(None)
+        self.m_frame = WattrMainFrame(None)
         self.m_frame.Show()
         self.SetTopWindow(self.m_frame)
         return True
