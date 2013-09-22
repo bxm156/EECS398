@@ -13,9 +13,9 @@ class wattrApp(wx.App):
         self.SetTopWindow(self.m_frame)
         return True
 
-    def OnExit(self):
+    def onExit(self):
         self.db_thread.join()
-        super(wattrApp, self).OnExit()
+        super(wattrApp, self).onExit()
 
 app = wattrApp(False)
 app.MainLoop()
