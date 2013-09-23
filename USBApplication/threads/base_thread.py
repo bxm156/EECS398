@@ -23,7 +23,6 @@ class BaseThread(threading.Thread):
         pass
 
     def run(self):
-        return
         while not self.should_terminate.is_set():
             try:
                 task = self.work_queue.get(True, 0.05)

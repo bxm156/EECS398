@@ -1,6 +1,7 @@
 import sqlite3
 import base_thread
 
+
 class DatabaseThread(base_thread.BaseThread):
 
     def __init__(self, db_path, work_queue):
