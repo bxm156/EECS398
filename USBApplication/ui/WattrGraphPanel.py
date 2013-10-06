@@ -28,4 +28,18 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
         self.Fit()
 
     def init_plot_data(self):
-        a = self.figure.add_subplot(111)
+        self.plot = self.figure.add_subplot(111)
+        self.set_title("Test")
+        self.plot.plot([1,2,3,4,5],[1,1,2,2,7], linewidth=2.0, label="test1")
+
+    def set_title(self, title):
+        self.plot.set_title(title)
+
+    def show_graph(self, boolean):
+        self.plot.grid(boolean)
+
+    def set_label_x(self, label):
+       self.plot.set_xlabel(label)
+
+    def set_label_y(self, label):
+       self.plot.set_ylabel(label)
