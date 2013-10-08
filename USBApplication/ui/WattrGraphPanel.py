@@ -18,6 +18,12 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
     def __init__(self, parent, fgsize=None, dpi=None):
         super(WattrGraphPanel, self).__init__(parent)
         self.figure = Figure(fgsize, dpi)
+
+        #Transparent figure face color
+        self.figure.set_facecolor((0,0,0,0,))
+
+
+        self.plot = self.figure.add_subplot(111)
         self.canvas = FigureCanvasWxAgg(self, -1, self.figure)
         # Now put all into a sizer
         sizer = wx.BoxSizer(wx.VERTICAL)
@@ -27,10 +33,8 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
         self.SetSizer(sizer)
         self.Fit()
 
-    def init_plot_data(self):
-        self.plot = self.figure.add_subplot(111)
-        self.set_title("Test")
-        self.plot.plot([1,2,3,4,5],[1,1,2,2,7], linewidth=2.0, label="test1")
+    def plot_data(self, x, y, **kwargs):
+        self.plot.plot(x, y, **kwargs)
 
     def set_title(self, title):
         self.plot.set_title(title)

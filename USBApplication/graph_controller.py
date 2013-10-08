@@ -11,7 +11,7 @@ class GraphController(object):
         return self.panel
     
     def graph(self):
-        self.panel.init_plot_data()
+        self.panel.plot_data([1,2,3], [1,2,3], linewidth=2.0)
         self.panel.Show()
 
 
