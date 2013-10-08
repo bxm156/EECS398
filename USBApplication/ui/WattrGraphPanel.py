@@ -26,15 +26,16 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
         self.plot = self.figure.add_subplot(111)
         self.canvas = FigureCanvasWxAgg(self, -1, self.figure)
         # Now put all into a sizer
-        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer = self.GetSizer()
         # This way of adding to sizer allows resizing
         sizer.Add(self.canvas, 1, wx.LEFT|wx.TOP|wx.GROW)
         # Best to allow the toolbar to resize!
-        self.SetSizer(sizer)
         self.Fit()
 
     def plot_data(self, x, y, **kwargs):
+        self.plot.clear()
         self.plot.plot(x, y, **kwargs)
+        self.figure.canvas.draw()
 
     def set_title(self, title):
         self.plot.set_title(title)
