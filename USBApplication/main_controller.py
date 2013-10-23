@@ -17,7 +17,7 @@ class MainController(object):
         app.SetTopWindow(app.m_frame)
 
         #Device Selection
-        device_selector = DeviceSelectorController(app.m_frame.m_panel4)
+        device_selector = DeviceSelectorController(app.m_frame.m_panel4, self)
         device_selector.get_view().Show()
 
         # Setup Graph for testing atm
@@ -28,6 +28,9 @@ class MainController(object):
         # Start threads
         self.db_thread = DatabaseThread("test", Queue.Queue())
         self.db_thread.start()
+
+    def on_device_selected(self, com_string):
+        print com_string
 
     def on_exit(self):
         self.db_thread.join()

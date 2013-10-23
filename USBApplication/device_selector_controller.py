@@ -8,12 +8,14 @@ from ui.WattrDeviceSelectorFrame import WattrDeviceSelectorFrame
 
 class DeviceSelectorController(object):
 
-    def __init__(self, parent):
+    def __init__(self, parent, listener):
         super(DeviceSelectorController, self).__init__()
+        self.listener = listener
         self.frame = WattrDeviceSelectorFrame(parent)
         self.frame.cancel_device_selection.Bind(wx.EVT_BUTTON, self.on_cancel)
         self.frame.refresh.Bind(wx.EVT_BUTTON, self.on_refresh)
         self.frame.device_choice.Bind(wx.EVT_CHOICE, self.update_select_state)
+        self.frame.select_device.Bind(wx.EVT_BUTTON, self.on_select)
         self.list_devices()
 
     def get_view(self):
@@ -27,6 +29,13 @@ class DeviceSelectorController(object):
     
     def on_cancel(self, event):
        self.frame.Destroy() 
+
+    def on_select(self, event):
+        current_selection = self.frame.device_choice.GetCurrentSelection()
+        selected_string = self.frame.device_choice.GetString(current_selection)
+        self.frame.Destroy()
+        self.listener.on_device_selected(selected_string)
+
 
     def update_select_state(self, event):
         current_selection = self.frame.device_choice.GetCurrentSelection()
