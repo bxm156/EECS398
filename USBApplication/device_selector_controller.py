@@ -1,7 +1,7 @@
 import csv
 import wx
 
-import usb.core
+from serial.tools import list_ports
 
 from ui.WattrDeviceSelectorFrame import WattrDeviceSelectorFrame
 
@@ -22,7 +22,7 @@ class DeviceSelectorController(object):
     def list_devices(self):
         self.frame.device_choice.Clear()
         self.frame.device_choice.Insert('None', 0)
-        devs = [str(d) for d in usb.core.find(find_all=True)]
+        devs = [d[0] for d in list_ports.comports()]
         self.frame.device_choice.AppendItems(devs)
     
     def on_cancel(self, event):
@@ -37,3 +37,4 @@ class DeviceSelectorController(object):
 
     def on_refresh(self, event):
         self.list_devices()
+        self.update_select_state(None)
