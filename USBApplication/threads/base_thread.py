@@ -11,6 +11,9 @@ class BaseThread(threading.Thread):
         self.work_queue = work_queue
         self.should_terminate = threading.Event()
         self.default_sleep = default_sleep
+ 
+    def setup(self):
+        pass
 
     def join(self, timeout=None):
         self.should_terminate.set()
@@ -23,6 +26,7 @@ class BaseThread(threading.Thread):
         pass
 
     def run(self):
+        self.setup()
         while not self.should_terminate.is_set():
             try:
                 task = self.work_queue.get(True, 0.05)
