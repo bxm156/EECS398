@@ -33,12 +33,18 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
         self.Fit()
 
     def plot_data(self, x, y, **kwargs):
-        self.plot.clear()
+        #self.plot.clear()
         self.plot.plot(x, y, **kwargs)
+        self.plot.set_ylim([59,61],auto=True)
+        self.plot.set_xlim([58109,58109+20])
+        self.plot.ticklabel_format(axis='y', style='plain', useOffset=False)
+        self.plot.ticklabel_format(axis='x', style='plain', useOffset=False)
+
         self.figure.canvas.draw()
 
     def set_title(self, title):
         self.plot.set_title(title)
+        self.figure.canvas.draw()
 
     def show_graph(self, boolean):
         self.plot.grid(boolean)
