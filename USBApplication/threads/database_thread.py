@@ -1,20 +1,31 @@
 import sqlite3
 import base_thread
 
+from tasks.sqlite.create_task import SQLiteCreateTask
+
 
 class DatabaseThread(base_thread.BaseThread):
 
-    def __init__(self, db_path, work_queue):
+    def __init__(self, connection_string, work_queue):
         super(DatabaseThread, self).__init__(work_queue=work_queue)
-        self.db_path = db_path
-        assert self.db_path
-        self.db_connection = None
+        self.connection_string = connection_string
+        assert self.connection_string
+
+    def setup(self):
+        self.connect()
+        self.work_queue.put(SQLiteCreateTask())
 
     def connect(self):
-        self.db_connection = sqlite3.connect(self.db_path)
+        self.connection = sqlite3.connect(self.connection_string)
+        self.connection.execute("PRAGMA foreign_keys = ON;")
+        self.connection.execute("PRAGMA synchronous = OFF")
+        self.connection.execute("PRAGMA journal_mode = MEMORY;")
+
+    def cleanup(self):
+        self.disconnect()
 
     def disconnect(self):
-        pass
+        self.connection.close()
 
-    def handle_task(task):
-        pass
+    def handle_task(self, task):
+        task.run(self.connection)

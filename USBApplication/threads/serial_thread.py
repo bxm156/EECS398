@@ -13,16 +13,13 @@ class SerialThread(base_thread.BaseThread):
         self.connect()
 
     def connect(self):
-        self.connection = sqlite3.connect(self.connection_string)
-        self.connection.execute("PRAGMA foreign_keys = ON;")
-        self.connection.execute("PRAGMA synchronous = OFF")
-        self.connection.execute("PRAGMA journal_mode = MEMORY;")
+        pass
 
     def cleanup(self):
-        self.disconnect()
+        pass
 
     def disconnect(self):
-        self.connection.close()
+        pass
 
     def handle_task(task):
-        task.run(self.connection)
+        pass

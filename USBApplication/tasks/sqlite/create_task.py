@@ -5,13 +5,13 @@ class SQLiteCreateTask(SQLiteTask):
 
     def run(self, connection):
         connection.executescript("""
-            CREATE TABLE devices (
+            CREATE TABLE IF NOT EXISTS devices (
                 id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL,
                 name Varchar(255),
                 serial_no Varchar(255)
             );
 
-            CREATE TABLE data (
+            CREATE TABLE IF NOT EXISTS data (
                 id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL,
                 device_id integer  REFERENCES devices(id) ON DELETE CASCADE,
                 timestamp Timestamp DEFAULT NULL,
@@ -23,7 +23,7 @@ class SQLiteCreateTask(SQLiteTask):
                 failure Boolean
             );
 
-            CREATE TABLE actions (
+            CREATE TABLE IF NOT EXISTS actions (
                 id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL,
                 action integer,
                 info TEXT
