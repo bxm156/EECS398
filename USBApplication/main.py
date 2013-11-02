@@ -6,7 +6,10 @@ from controllers.main_controller import MainController
 
 
 class wattrApp(wx.App):
+    """Main Application Class"""
+
     def OnInit(self):
+        #Create the Main Controller for the app
         self.controller = MainController(self)
         return True
 
@@ -14,5 +17,8 @@ class wattrApp(wx.App):
         super(wattrApp, self).onExit()
         self.controller.on_exit()
 
+#Create the app
 app = wattrApp(False)
+
+#Run the main GUI loop
 app.MainLoop()

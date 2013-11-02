@@ -1,6 +1,7 @@
 from ui.WattrMainFrame import WattrMainFrame
-from graph_controller import GraphController
-from device_selector_controller import DeviceSelectorController
+from controllers.graph_controller import GraphController
+from controllers.device_selector_controller import DeviceSelectorController
+from controllers.database_controller import DatabaseController
 from threads.database_thread import DatabaseThread
 import Queue
 from pypreferences import PyPreferences
@@ -19,6 +20,10 @@ class MainController(object):
         #Device Selection
         device_selector = DeviceSelectorController(app.m_frame.m_panel4, self)
         device_selector.get_view().Show()
+
+        #Database Selection 
+        database_controller = DatabaseController(app.m_frame, self)
+        database_controller.get_view().Show()
 
         # Setup Graph for testing atm
         graph_controller = GraphController(app.m_frame.m_panel4)

@@ -209,7 +209,7 @@ class CalibrationFrame ( wx.Frame ):
 class DeviceSelectorFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Device Selector", pos = wx.DefaultPosition, size = wx.Size( 450,150 ), style = wx.CAPTION|wx.STAY_ON_TOP|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Device Selector", pos = wx.DefaultPosition, size = wx.Size( 450,150 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -260,6 +260,104 @@ class DeviceSelectorFrame ( wx.Frame ):
 		
 		
 		self.SetSizer( bSizer8 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class DatabaseSelectorFrame
+###########################################################################
+
+class DatabaseSelectorFrame ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select Database", pos = wx.DefaultPosition, size = wx.Size( 500,150 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer17 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText17 = wx.StaticText( self, wx.ID_ANY, u"Select the database you wish to use:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText17.Wrap( -1 )
+		bSizer17.Add( self.m_staticText17, 0, wx.ALL, 5 )
+		
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.database_path = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_NO_VSCROLL )
+		bSizer18.Add( self.database_path, 1, wx.ALL, 5 )
+		
+		self.browse_button = wx.Button( self, wx.ID_ANY, u"Browse", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.browse_button.SetDefault() 
+		bSizer18.Add( self.browse_button, 0, wx.ALL, 5 )
+		
+		
+		bSizer17.Add( bSizer18, 1, wx.EXPAND, 5 )
+		
+		bSizer19 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.cancel_button = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.cancel_button, 0, wx.ALL, 5 )
+		
+		
+		bSizer19.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.continue_button = wx.Button( self, wx.ID_ANY, u"Continue", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer19.Add( self.continue_button, 0, wx.ALL, 5 )
+		
+		
+		bSizer17.Add( bSizer19, 1, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer17 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class DatabaseFrame
+###########################################################################
+
+class DatabaseFrame ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select or Create a Database", pos = wx.DefaultPosition, size = wx.Size( 500,125 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText18 = wx.StaticText( self, wx.ID_ANY, u"To begin, you must create a database to store collected data, or you may select a preexisting one:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText18.Wrap( 500 )
+		bSizer20.Add( self.m_staticText18, 0, wx.ALL, 5 )
+		
+		bSizer21 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		
+		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.create_button = wx.Button( self, wx.ID_ANY, u"Create New Database", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.create_button.SetDefault() 
+		bSizer21.Add( self.create_button, 0, wx.ALL, 5 )
+		
+		self.browse_button = wx.Button( self, wx.ID_ANY, u"Select Existing Database...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.browse_button, 0, wx.ALL, 5 )
+		
+		
+		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		
+		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer20 )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
