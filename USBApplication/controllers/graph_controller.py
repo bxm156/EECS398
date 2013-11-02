@@ -25,13 +25,16 @@ class GraphController(object):
         openFileDialog.Destroy()
 
         with open(path, 'rb') as csv_input:
-            graphdata = csv.DictReader(csv_input, fieldnames= ('time', 'voltage',))
+            graphdata = csv.DictReader(csv_input, fieldnames= ('time', 'frequency',))
             graphdata.next()
             x = []
             y = []
             for row in graphdata:
                 x.append(float(row['time']))
-                y.append(float(row['voltage']))
+                y.append(float(row['frequency']))
+        self.panel.set_title("Frequency vs Time")
+        self.panel.set_label_x("Time (s)")
+        self.panel.set_label_y("Frequency (Hz)")
         self.graph(x, y)
 
 

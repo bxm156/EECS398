@@ -2,7 +2,7 @@ import wxversion
 wxversion.ensureMinimal('2.9')
 
 import wx
-from main_controller import MainController
+from controllers.main_controller import MainController
 
 
 class wattrApp(wx.App):

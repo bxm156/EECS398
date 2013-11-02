@@ -26,7 +26,7 @@ class MainController(object):
         graph_controller.graph()
 
         # Start threads
-        self.db_thread = DatabaseThread("test", Queue.Queue())
+        self.db_thread = DatabaseThread("test.db", Queue.Queue())
         self.db_thread.start()
 
     def on_device_selected(self, com_string):
