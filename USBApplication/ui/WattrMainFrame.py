@@ -44,3 +44,7 @@ class WattrMainFrame(WattrGUI.MainFrame):
         date_picker_sizer.Add(self.end_time_spinner, 0, wx.TOP, 14)
         date_picker_sizer.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
         date_picker_container.SetSizerAndFit(date_picker_sizer)
+
+        # Update Button
+        self.stats_update_button = wx.Button(date_picker_container, wx.ID_ANY,u"Update", wx.DefaultPosition, wx.DefaultSize, 0)
+        date_picker_sizer.Add(self.stats_update_button, 0, wx.TOP, 10)

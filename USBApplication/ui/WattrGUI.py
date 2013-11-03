@@ -128,7 +128,195 @@ class MainFrame ( wx.Frame ):
 		date_picker_box_sizer.Add( self.m_panel_stats_date_pickers, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		m_panel_stats_box_sizer.Add( date_picker_box_sizer, 1, wx.EXPAND, 5 )
+		m_panel_stats_box_sizer.Add( date_picker_box_sizer, 0, wx.EXPAND, 5 )
+		
+		bSizer18 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer19 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText47 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Mean", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText47.Wrap( -1 )
+		self.m_staticText47.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 92, False, wx.EmptyString ) )
+		
+		bSizer19.Add( self.m_staticText47, 0, wx.ALL, 5 )
+		
+		
+		bSizer19.AddSpacer( ( 0, 20), 0, wx.EXPAND, 5 )
+		
+		fgSizer31 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer31.SetFlexibleDirection( wx.BOTH )
+		fgSizer31.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText101 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText101.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText101, 0, wx.ALL, 5 )
+		
+		self.m_staticText111 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"5V", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText111.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText111, 0, wx.ALL, 5 )
+		
+		self.m_staticText142 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText142.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText142, 0, wx.ALL, 5 )
+		
+		self.m_staticText152 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1A", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText152.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText152, 0, wx.ALL, 5 )
+		
+		self.m_staticText161 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText161.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText161, 0, wx.ALL, 5 )
+		
+		self.m_staticText171 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10W", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText171.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText171, 0, wx.ALL, 5 )
+		
+		self.m_staticText121 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText121.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText121, 0, wx.ALL, 5 )
+		
+		self.m_staticText1311 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1311.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText1311, 0, wx.ALL, 5 )
+		
+		self.m_staticText1411 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1411.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText1411, 0, wx.ALL, 5 )
+		
+		self.m_staticText1511 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10 MHz", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1511.Wrap( -1 )
+		fgSizer31.Add( self.m_staticText1511, 0, wx.ALL, 5 )
+		
+		
+		bSizer19.Add( fgSizer31, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer18.Add( bSizer19, 1, wx.EXPAND, 5 )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText48 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Median", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText48.Wrap( -1 )
+		self.m_staticText48.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 92, False, wx.EmptyString ) )
+		
+		bSizer20.Add( self.m_staticText48, 0, wx.ALL, 5 )
+		
+		
+		bSizer20.AddSpacer( ( 0, 20), 0, wx.EXPAND, 5 )
+		
+		fgSizer311 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer311.SetFlexibleDirection( wx.BOTH )
+		fgSizer311.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText1011 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1011.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1011, 0, wx.ALL, 5 )
+		
+		self.m_staticText1111 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"5V", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1111.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1111, 0, wx.ALL, 5 )
+		
+		self.m_staticText1421 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1421.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1421, 0, wx.ALL, 5 )
+		
+		self.m_staticText1521 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1A", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1521.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1521, 0, wx.ALL, 5 )
+		
+		self.m_staticText1611 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1611.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1611, 0, wx.ALL, 5 )
+		
+		self.m_staticText1711 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10W", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1711.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1711, 0, wx.ALL, 5 )
+		
+		self.m_staticText1211 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1211.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText1211, 0, wx.ALL, 5 )
+		
+		self.m_staticText13111 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13111.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText13111, 0, wx.ALL, 5 )
+		
+		self.m_staticText14111 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14111.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText14111, 0, wx.ALL, 5 )
+		
+		self.m_staticText15111 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10 MHz", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15111.Wrap( -1 )
+		fgSizer311.Add( self.m_staticText15111, 0, wx.ALL, 5 )
+		
+		
+		bSizer20.Add( fgSizer311, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer18.Add( bSizer20, 1, wx.EXPAND, 5 )
+		
+		bSizer21 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText49 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Mode", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText49.Wrap( -1 )
+		self.m_staticText49.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 70, 90, 92, False, wx.EmptyString ) )
+		
+		bSizer21.Add( self.m_staticText49, 0, wx.ALL, 5 )
+		
+		
+		bSizer21.AddSpacer( ( 0, 20), 0, wx.EXPAND, 5 )
+		
+		fgSizer312 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer312.SetFlexibleDirection( wx.BOTH )
+		fgSizer312.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_staticText1012 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1012.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1012, 0, wx.ALL, 5 )
+		
+		self.m_staticText1112 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"5V", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1112.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1112, 0, wx.ALL, 5 )
+		
+		self.m_staticText1422 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1422.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1422, 0, wx.ALL, 5 )
+		
+		self.m_staticText1522 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1A", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1522.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1522, 0, wx.ALL, 5 )
+		
+		self.m_staticText1612 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1612.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1612, 0, wx.ALL, 5 )
+		
+		self.m_staticText1712 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10W", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1712.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1712, 0, wx.ALL, 5 )
+		
+		self.m_staticText1212 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1212.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText1212, 0, wx.ALL, 5 )
+		
+		self.m_staticText13112 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13112.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText13112, 0, wx.ALL, 5 )
+		
+		self.m_staticText14112 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14112.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText14112, 0, wx.ALL, 5 )
+		
+		self.m_staticText15112 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"10 MHz", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15112.Wrap( -1 )
+		fgSizer312.Add( self.m_staticText15112, 0, wx.ALL, 5 )
+		
+		
+		bSizer21.Add( fgSizer312, 1, wx.EXPAND, 5 )
+		
+		
+		bSizer18.Add( bSizer21, 1, wx.EXPAND, 5 )
+		
+		
+		m_panel_stats_box_sizer.Add( bSizer18, 1, wx.EXPAND, 5 )
 		
 		
 		self.m_panel_stats.SetSizer( m_panel_stats_box_sizer )
