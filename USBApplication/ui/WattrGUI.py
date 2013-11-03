@@ -119,6 +119,22 @@ class MainFrame ( wx.Frame ):
 		self.m_panel4.Layout()
 		bSizer61.Fit( self.m_panel4 )
 		self.m_notebook4.AddPage( self.m_panel4, u"Graphs", False )
+		self.m_panel_stats = wx.Panel( self.m_notebook4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		m_panel_stats_box_sizer = wx.BoxSizer( wx.VERTICAL )
+		
+		date_picker_box_sizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_panel_stats_date_pickers = wx.Panel( self.m_panel_stats, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		date_picker_box_sizer.Add( self.m_panel_stats_date_pickers, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		m_panel_stats_box_sizer.Add( date_picker_box_sizer, 1, wx.EXPAND, 5 )
+		
+		
+		self.m_panel_stats.SetSizer( m_panel_stats_box_sizer )
+		self.m_panel_stats.Layout()
+		m_panel_stats_box_sizer.Fit( self.m_panel_stats )
+		self.m_notebook4.AddPage( self.m_panel_stats, u"Statistics", False )
 		
 		bSizer1.Add( self.m_notebook4, 1, wx.EXPAND |wx.ALL, 5 )
 		
