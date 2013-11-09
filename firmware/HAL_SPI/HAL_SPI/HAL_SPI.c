@@ -10,18 +10,23 @@
  * VFD_NRST - PC28, pin 76
  */ 
 
+// SEE P.674 FOR I/O LNES PROGRAMMING EXAMPLE
+
 #include "sam.h"
 #include <stdint.h>
 
 // Call this in the setup, not main loop of the firmware
 void sam_uart_spi_init(){
-	
-	
+	// declare CS pin and set it high
 	
 	/* Below, UART-SPI config for the VFD */
 	
+	
 	// MOSI aka PB1 must be output
 	// BUSY aka PA4/PGMN0 must be input
+		//Read pin status via PIO_PDSR
+		//Note - PIO_PDSR reads I/O line status regardless of config
+		// enable the PIO controller clock to be able to read that register!				
 	// SCK aka PB13 must be output
 	// NRST aka PC28 must be output
 	
@@ -43,7 +48,12 @@ void sam_uart_spi_init(){
 void hal_spi_chip_select(){
 	// bring CS pin low
 	// PIO Controller talked about on p.657
-	// AFE CS is PC4, pin 41, D4 peripheal A
+	// AFE CS is PC4, pin 41, D4, peripheal A
+	// see p. 662 for mention of peripheral A selection
+	
+	// Set the right bit in PIO_PSR
+	
+	
 }
 
 void hal_spi_chip_deselect(){
