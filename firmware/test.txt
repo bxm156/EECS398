@@ -1,3 +1,0 @@
-This is where the firmware code will be kept
-
-look at me - I can git
