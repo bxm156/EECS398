@@ -319,6 +319,20 @@ class MainFrame ( wx.Frame ):
 		m_panel_stats_box_sizer.Add( bSizer18, 1, wx.EXPAND, 5 )
 		
 		
+		m_panel_stats_box_sizer.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		bSizer23 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		
+		bSizer23.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.stats_dump_raw_date = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Dump Raw Data", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer23.Add( self.stats_dump_raw_date, 0, wx.ALL, 5 )
+		
+		
+		m_panel_stats_box_sizer.Add( bSizer23, 0, wx.EXPAND, 5 )
+		
+		
 		self.m_panel_stats.SetSizer( m_panel_stats_box_sizer )
 		self.m_panel_stats.Layout()
 		m_panel_stats_box_sizer.Fit( self.m_panel_stats )
@@ -407,13 +421,58 @@ class CalibrationFrame ( wx.Frame ):
 	
 
 ###########################################################################
-## Class DeviceSelectorFrame
+## Class DatabaseDialog
 ###########################################################################
 
-class DeviceSelectorFrame ( wx.Frame ):
+class DatabaseDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Device Selector", pos = wx.DefaultPosition, size = wx.Size( 450,150 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select or Create a Database", pos = wx.DefaultPosition, size = wx.Size( 500,125 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_staticText18 = wx.StaticText( self, wx.ID_ANY, u"To begin, you must create a database to store collected data, or you may select a preexisting one:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText18.Wrap( 500 )
+		bSizer20.Add( self.m_staticText18, 0, wx.ALL, 5 )
+		
+		bSizer21 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		
+		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		self.create_button = wx.Button( self, wx.ID_ANY, u"Create New Database", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.create_button.SetDefault() 
+		bSizer21.Add( self.create_button, 0, wx.ALL, 5 )
+		
+		self.browse_button = wx.Button( self, wx.ID_ANY, u"Select Existing Database...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.browse_button, 0, wx.ALL, 5 )
+		
+		
+		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		
+		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer20 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class DeviceSelectorDialog
+###########################################################################
+
+class DeviceSelectorDialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Device Selector", pos = wx.DefaultPosition, size = wx.Size( 450,150 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -473,13 +532,13 @@ class DeviceSelectorFrame ( wx.Frame ):
 	
 
 ###########################################################################
-## Class DatabaseSelectorFrame
+## Class DatabaseSelectorDialog
 ###########################################################################
 
-class DatabaseSelectorFrame ( wx.Frame ):
+class DatabaseSelectorDialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select Database", pos = wx.DefaultPosition, size = wx.Size( 500,150 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,150 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -517,51 +576,6 @@ class DatabaseSelectorFrame ( wx.Frame ):
 		
 		
 		self.SetSizer( bSizer17 )
-		self.Layout()
-		
-		self.Centre( wx.BOTH )
-	
-	def __del__( self ):
-		pass
-	
-
-###########################################################################
-## Class DatabaseFrame
-###########################################################################
-
-class DatabaseFrame ( wx.Frame ):
-	
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select or Create a Database", pos = wx.DefaultPosition, size = wx.Size( 500,125 ), style = wx.CAPTION|wx.FRAME_FLOAT_ON_PARENT|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
-		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
-		
-		bSizer20 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.m_staticText18 = wx.StaticText( self, wx.ID_ANY, u"To begin, you must create a database to store collected data, or you may select a preexisting one:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText18.Wrap( 500 )
-		bSizer20.Add( self.m_staticText18, 0, wx.ALL, 5 )
-		
-		bSizer21 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		
-		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-		
-		self.create_button = wx.Button( self, wx.ID_ANY, u"Create New Database", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.create_button.SetDefault() 
-		bSizer21.Add( self.create_button, 0, wx.ALL, 5 )
-		
-		self.browse_button = wx.Button( self, wx.ID_ANY, u"Select Existing Database...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer21.Add( self.browse_button, 0, wx.ALL, 5 )
-		
-		
-		bSizer21.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-		
-		
-		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
-		
-		
-		self.SetSizer( bSizer20 )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )

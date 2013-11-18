@@ -19,8 +19,6 @@ int readline(int c, char *buffer, int len) {
   if (c > 0) {
     switch (c) {
       case '\n':
-        break;
-      case '\r':
        rpos = pos;
        pos = 0;
        return rpos;
@@ -43,6 +41,7 @@ void handlecommand(char *command) {
     Serial.print(",");
     Serial.print(random(58,62));
     Serial.println();
+    Serial.println("END");
   }
 }
   
@@ -50,7 +49,7 @@ void loop()
 {
   static char buffer[BUFFER_SIZE];
   if(readline(Serial.read(), buffer, BUFFER_SIZE) > 0) {
-    Serial.println(buffer);
+    //Serial.println(buffer);
     handlecommand(buffer);
   }
 }

@@ -1,5 +1,5 @@
 import base_thread
-
+import serial
 
 class SerialThread(base_thread.BaseThread):
 
@@ -13,13 +13,13 @@ class SerialThread(base_thread.BaseThread):
         self.connect()
 
     def connect(self):
-        pass
+        self.serial_connection = serial.Serial(self.serial_path, timeout=1)
 
     def cleanup(self):
-        pass
+        self.disconnect()
 
     def disconnect(self):
-        pass
+        self.serial_connection.close()
 
-    def handle_task(task):
-        pass
+    def handle_task(self, task):
+        task.run(self.serial_connection)
