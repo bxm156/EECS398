@@ -326,8 +326,8 @@ class MainFrame ( wx.Frame ):
 		
 		bSizer23.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
 		
-		self.stats_dump_raw_date = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Dump Raw Data", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer23.Add( self.stats_dump_raw_date, 0, wx.ALL, 5 )
+		self.stats_dump_raw_data = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Dump Raw Data", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer23.Add( self.stats_dump_raw_data, 0, wx.ALL, 5 )
 		
 		
 		m_panel_stats_box_sizer.Add( bSizer23, 0, wx.EXPAND, 5 )
