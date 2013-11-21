@@ -20,6 +20,7 @@ class DatabaseThread(base_thread.BaseThread):
         self.connection.execute("PRAGMA foreign_keys = ON;")
         self.connection.execute("PRAGMA synchronous = OFF")
         self.connection.execute("PRAGMA journal_mode = MEMORY;")
+        self.connection.row_factory = sqlite3.Row
 
     def cleanup(self):
         self.disconnect()

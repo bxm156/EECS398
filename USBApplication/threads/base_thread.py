@@ -31,6 +31,8 @@ class BaseThread(threading.Thread):
             try:
                 task = self.work_queue.get(True, 0.05)
                 self.handle_task(task)
+                if task.listener:
+                    task.listener(task)
             except Queue.Empty:
                 continue
         # Cleanup

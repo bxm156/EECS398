@@ -1,5 +1,5 @@
 import sqlite3
-
+from datetime import datetime
 from base_task import BaseTask
 
 
@@ -13,9 +13,6 @@ class SQLiteTask(BaseTask):
             if isinstance(value, datetime):
                 param_dict[key] = value.strftime(self.TIMESTAMP_FORMAT) 
         self.parameters = param_dict
-
-    def set_parameters(self):
-        raise NotImplementedError
 
     def run(self, connection):
         raise NotImplementedError
