@@ -18,7 +18,10 @@ class MainController(object):
         self.app = app
         self.app.m_frame = WattrMainFrame(None)
         self.app.m_frame.Show()
+
+        # Bind Buttons
         self.app.m_frame.stats_dump_raw_data.Bind(wx.EVT_BUTTON, self.on_dump_data)
+        self.app.m_frame.stats_update_button.Bind(wx.EVT_BUTTON, self.on_update_stats)
 
         #Database Selection
         if not self.wattrlib.is_database_defined():
@@ -45,8 +48,7 @@ class MainController(object):
     def on_database_selected(self, db_path):
         self.wattrlib.set_database_path(db_path)
 
-
-    def on_dump_data(self, evt):
+    def get_stats_times(self):
         # Get StartTime
         start_date = self.app.m_frame.start_date_picker.GetValue()
         start_time = self.app.m_frame.start_time_picker.GetValue(as_wxDateTime=True)
@@ -58,7 +60,18 @@ class MainController(object):
         end_time = self.app.m_frame.end_time_picker.GetValue(as_wxDateTime=True)
         combined = fill_wx_date_with_time(end_date, end_time)
         end_datetime = wx_datetime_to_python_datetime(combined)
+        return start_datetime, end_datetime
 
+    def on_update_stats(self, evt):
+        start_datetime, end_datetime = self.get_stats_times()
+        
+        def on_stats_update_ui(means, medians, maximums, minimums):
+            pass
+
+        self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
+
+    def on_dump_data(self, evt):
+        start_datetime, end_datetime = self.get_stats_times()    
         createFileDialog = wx.FileDialog(self.app.m_frame, "Save", "", "",
                                                         "CSV files (*.csv)|*.csv",
                                                         wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)

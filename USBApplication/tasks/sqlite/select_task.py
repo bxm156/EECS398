@@ -8,6 +8,7 @@ class SQLiteSelectTask(SQLiteTask):
     query = "SELECT * FROM data WHERE timestamp >= :start_time AND timestamp <= :end_time"
 
     def run(self, connection):
+        super(SQLiteSelectTask, self).run(connection)
         assert self.parameters
         cur = connection.cursor()
         cur.execute(self.query, self.parameters)

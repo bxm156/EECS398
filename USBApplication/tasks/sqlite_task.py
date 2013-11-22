@@ -7,7 +7,11 @@ class SQLiteTask(BaseTask):
 
     TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
     parameters = None
-    
+    row_factory = None
+
+    def set_row_factory(self, factory):
+        row_factory = factory
+
     def set_parameters(self, param_dict):
         for key, value in param_dict.items():
             if isinstance(value, datetime):
@@ -15,7 +19,7 @@ class SQLiteTask(BaseTask):
         self.parameters = param_dict
 
     def run(self, connection):
-        raise NotImplementedError
+        connection.row_factory = self.row_factory
 
     def cleanup(self):
         pass

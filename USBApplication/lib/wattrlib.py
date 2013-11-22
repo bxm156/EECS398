@@ -1,5 +1,7 @@
 import os
 import csv
+import numpy
+import sqlite3
 
 from threads.database_thread import DatabaseThread
 
@@ -59,5 +61,23 @@ class WattrLib(object):
                 writer.writerows(results)
 
         task = SQLiteSelectTask(listener=listener_function)
+        task.set_row_factory(sqlite3.Row)
         task.set_parameters({'start_time': start_time, 'end_time': end_time})
         self.db_queue.put(task)
+
+    def get_data_stats(self, start_time, end_time, handler_function):
+        def stat_func(task):
+            rows = task.get_result()
+            if not rows:
+                handler_function(None, None, None, None)
+                return
+            means = numpy.mean(rows, axis=0)
+            medians = numpy.median(rows, axis=0)
+            maximums = numpy.nanmax(rows, axis=0)
+            minimums = numpy.nanmin(rows, axis=0)
+            handler_function(means, medians, maximums, minimums)
+            
+        task = SQLiteSelectTask(listener=stat_func)
+        task.set_parameters({'start_time': start_time, 'end_time': end_time})
+        self.db_queue.put(task)
+
