@@ -15,9 +15,10 @@ class SQLiteCreateTask(SQLiteTask):
                 id integer  PRIMARY KEY AUTOINCREMENT DEFAULT NULL,
                 device_id integer  REFERENCES devices(id) ON DELETE CASCADE,
                 timestamp Timestamp DEFAULT NULL,
-                voltage integer,
-                current integer,
-                "power" integer,
+                voltage REAL,
+                current REAL,
+                "power" REAL,
+                "frequency" REAL,
                 spike Boolean,
                 dip Boolean,
                 failure Boolean

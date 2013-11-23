@@ -66,7 +66,33 @@ class MainController(object):
         start_datetime, end_datetime = self.get_stats_times()
         
         def on_stats_update_ui(means, medians, maximums, minimums):
-            pass
+            if means is None:
+                print "Failed"
+                return
+
+            # Mean
+            self.app.m_frame.voltage_mean.SetLabel(str(means[0]) + " V")
+            self.app.m_frame.current_mean.SetLabel(str(means[1]) + " A")
+            self.app.m_frame.power_mean.SetLabel(str(means[2]) + " W")
+            self.app.m_frame.freq_mean.SetLabel(str(means[3]) + " Hz")
+            
+            # Median
+            self.app.m_frame.voltage_median.SetLabel(str(medians[0]) + " V")
+            self.app.m_frame.current_median.SetLabel(str(medians[1]) + " A")
+            self.app.m_frame.power_median.SetLabel(str(medians[2]) + " W")
+            self.app.m_frame.freq_median.SetLabel(str(medians[3]) + " Hz")
+
+            # Max
+            self.app.m_frame.voltage_max.SetLabel(str(maximums[0]) + " V")
+            self.app.m_frame.current_max.SetLabel(str(maximums[1]) + " A")
+            self.app.m_frame.power_max.SetLabel(str(maximums[2]) + " W")
+            self.app.m_frame.freq_max.SetLabel(str(maximums[3]) + " Hz")
+
+            # Min
+            self.app.m_frame.voltage_min.SetLabel(str(minimums[0]) + " V")
+            self.app.m_frame.current_min.SetLabel(str(minimums[1]) + " A")
+            self.app.m_frame.power_min.SetLabel(str(minimums[2]) + " W")
+            self.app.m_frame.freq_min.SetLabel(str(minimums[3]) + " Hz")
 
         self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
 
