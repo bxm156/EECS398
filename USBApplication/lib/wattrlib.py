@@ -70,14 +70,15 @@ class WattrLib(object):
         def stat_func(task):
             rows = task.get_result()
             if not rows:
-                handler_function(None, None, None, None)
+                handler_function(None, None, None, None, None)
                 return
             rows = numpy.asarray(rows)
             means = numpy.mean(rows, axis=0)
             medians = numpy.median(rows, axis=0)
             maximums = numpy.nanmax(rows, axis=0)
             minimums = numpy.nanmin(rows, axis=0)
-            handler_function(means, medians, maximums, minimums)
+            std = numpy.std(rows, axis=0)
+            handler_function(means, medians, maximums, minimums, std)
             
         task = SQLiteSelectDataTask(listener=stat_func)
         parameters = {

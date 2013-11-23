@@ -29,12 +29,12 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText8.Wrap( -1 )
 		bSizer7.Add( self.m_staticText8, 0, wx.ALL, 5 )
 		
-		self.m_staticText9 = wx.StaticText( self, wx.ID_ANY, u"Connected on COM1", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText9.Wrap( -1 )
-		bSizer7.Add( self.m_staticText9, 0, wx.ALL, 5 )
+		self.device_conn_status = wx.StaticText( self, wx.ID_ANY, u"Connected on COM1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_conn_status.Wrap( -1 )
+		bSizer7.Add( self.device_conn_status, 0, wx.ALL, 5 )
 		
-		self.m_button4 = wx.Button( self, wx.ID_ANY, u"Disconnect", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer7.Add( self.m_button4, 0, wx.ALL, 5 )
+		self.disconnect_button = wx.Button( self, wx.ID_ANY, u"Disconnect", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer7.Add( self.disconnect_button, 0, wx.ALL, 5 )
 		
 		
 		bSizer1.Add( bSizer7, 0, wx.EXPAND, 5 )
@@ -132,7 +132,7 @@ class MainFrame ( wx.Frame ):
 		
 		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		fgSizer12 = wx.FlexGridSizer( 6, 6, 5, 10 )
+		fgSizer12 = wx.FlexGridSizer( 6, 7, 5, 10 )
 		fgSizer12.SetFlexibleDirection( wx.BOTH )
 		fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
@@ -159,6 +159,10 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText120.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText120, 0, wx.ALL, 5 )
 		
+		self.m_staticText184 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Std.", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText184.Wrap( -1 )
+		fgSizer12.Add( self.m_staticText184, 0, wx.ALL, 5 )
+		
 		self.m_staticText1213 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1213.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText1213, 0, wx.ALL, 5 )
@@ -182,6 +186,10 @@ class MainFrame ( wx.Frame ):
 		self.voltage_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.voltage_min.Wrap( -1 )
 		fgSizer12.Add( self.voltage_min, 0, wx.ALL, 5 )
+		
+		self.voltage_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.voltage_std.Wrap( -1 )
+		fgSizer12.Add( self.voltage_std, 0, wx.ALL, 5 )
 		
 		self.m_staticText127 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText127.Wrap( -1 )
@@ -207,6 +215,10 @@ class MainFrame ( wx.Frame ):
 		self.current_min.Wrap( -1 )
 		fgSizer12.Add( self.current_min, 0, wx.ALL, 5 )
 		
+		self.current_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.current_std.Wrap( -1 )
+		fgSizer12.Add( self.current_std, 0, wx.ALL, 5 )
+		
 		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText166.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText166, 0, wx.ALL, 5 )
@@ -230,6 +242,10 @@ class MainFrame ( wx.Frame ):
 		self.power_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.power_min.Wrap( -1 )
 		fgSizer12.Add( self.power_min, 0, wx.ALL, 5 )
+		
+		self.power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.power_std.Wrap( -1 )
+		fgSizer12.Add( self.power_std, 0, wx.ALL, 5 )
 		
 		self.m_staticText172 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText172.Wrap( -1 )
@@ -255,6 +271,10 @@ class MainFrame ( wx.Frame ):
 		self.power_factor_min.Wrap( -1 )
 		fgSizer12.Add( self.power_factor_min, 0, wx.ALL, 5 )
 		
+		self.power_factory_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.power_factory_std.Wrap( -1 )
+		fgSizer12.Add( self.power_factory_std, 0, wx.ALL, 5 )
+		
 		self.m_staticText178 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText178.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText178, 0, wx.ALL, 5 )
@@ -278,6 +298,10 @@ class MainFrame ( wx.Frame ):
 		self.freq_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.freq_min.Wrap( -1 )
 		fgSizer12.Add( self.freq_min, 0, wx.ALL, 5 )
+		
+		self.freq_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.freq_std.Wrap( -1 )
+		fgSizer12.Add( self.freq_std, 0, wx.ALL, 5 )
 		
 		
 		bSizer37.Add( fgSizer12, 1, wx.EXPAND, 5 )

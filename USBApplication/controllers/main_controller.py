@@ -22,6 +22,7 @@ class MainController(object):
         # Bind Buttons
         self.app.m_frame.stats_dump_raw_data.Bind(wx.EVT_BUTTON, self.on_dump_data)
         self.app.m_frame.stats_update_button.Bind(wx.EVT_BUTTON, self.on_update_stats)
+        self.app.m_frame.disconnect_button.Bind(wx.EVT_BUTTON, self.on_disconnect)
 
         #Database Selection
         if not self.wattrlib.is_database_defined():
@@ -29,8 +30,7 @@ class MainController(object):
             database_controller.get_view().ShowModal()
 
         #Device Selection
-        device_selector = DeviceSelectorController(app.m_frame.m_panel4, self)
-        device_selector.get_view().ShowModal()
+        self.show_device_selector()
 
         app.SetTopWindow(app.m_frame)
 
@@ -39,11 +39,19 @@ class MainController(object):
         app.m_frame.m_panel4 = graph_controller.get_view()
         graph_controller.graph()
 
-        # Start threads
-        self.wattrlib.start_threads()
+    def show_device_selector(self):
+        #Device Selection
+        device_selector = DeviceSelectorController(self.app.m_frame.m_panel4, self)
+        device_selector.get_view().ShowModal()
+
+    def on_disconnect(self, evt):
+        self.wattrlib.stop_threads()
+        self.app.m_frame.device_conn_status.SetLabel("Disconnected")
+        self.show_device_selector()
 
     def on_device_selected(self, com_string):
-        pass
+        # Start threads
+        self.wattrlib.start_threads()
 
     def on_database_selected(self, db_path):
         self.wattrlib.set_database_path(db_path)
@@ -65,7 +73,7 @@ class MainController(object):
     def on_update_stats(self, evt):
         start_datetime, end_datetime = self.get_stats_times()
         
-        def on_stats_update_ui(means, medians, maximums, minimums):
+        def on_stats_update_ui(means, medians, maximums, minimums, std):
             if means is None:
                 print "Failed"
                 return
@@ -93,6 +101,12 @@ class MainController(object):
             self.app.m_frame.current_min.SetLabel(str(minimums[1]) + " A")
             self.app.m_frame.power_min.SetLabel(str(minimums[2]) + " W")
             self.app.m_frame.freq_min.SetLabel(str(minimums[3]) + " Hz")
+
+            # STD
+            self.app.m_frame.voltage_std.SetLabel(str(std[0]) + " V")
+            self.app.m_frame.current_std.SetLabel(str(std[1]) + " A")
+            self.app.m_frame.power_std.SetLabel(str(std[2]) + " W")
+            self.app.m_frame.freq_std.SetLabel(str(std[3]) + " Hz")
 
         self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
 
