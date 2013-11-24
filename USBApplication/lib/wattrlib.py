@@ -81,9 +81,11 @@ class WattrLib(object):
             #Zips for histograms
             zipped = zip(*rows)
             voltages = zipped[0]
-            current = zipped[1]
+            currents = zipped[1]
+            power = zipped[2]
+            freq = zipped[3]
 
-            handler_function(means, medians, maximums, minimums, std, voltages)
+            handler_function(means, medians, maximums, minimums, std, voltages, currents, power, freq)
             
         task = SQLiteSelectDataTask(listener=stat_func)
         parameters = {

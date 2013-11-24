@@ -12,6 +12,11 @@ from lib.lib import fill_wx_date_with_time
 class MainController(object):
 
     wattrlib = None
+    v_hist = []
+    c_hist = []
+    p_hist = []
+    pf_hist = []
+    f_hist = []
 
     def __init__(self, app):
         super(MainController, self).__init__()
@@ -48,19 +53,19 @@ class MainController(object):
         #graph_controller.graph()
 
     def on_voltage_histogram(self, evt):
-        self.show_histogram([1,2,3], "Frequency of Voltage", "Occurances", "Voltage (V)")
+        self.show_histogram(self.v_hist, "Frequency of Voltage", "Occurances", "Voltage (V)")
 
     def on_current_histogram(self, evt):
-        self.show_histogram([1,2,3], "Frequency of Current", "Occurances", "Current (A)")
+        self.show_histogram(self.c_hist, "Frequency of Current", "Occurances", "Current (A)")
 
     def on_power_histogram(self, evt):
-        self.show_histogram([1,2,3], "Frequency of Power", "Occurances", "Power, (W)")
+        self.show_histogram(self.p_hist, "Frequency of Power", "Occurances", "Power, (W)")
 
     def on_power_factor_histogram(self, evt):
-        self.show_histogram([1,2,3], "Frequency of Power Factor", "Occurances", "Power Factor")
+        self.show_histogram(self.pf_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
 
     def on_frequency_histogram(self, evt):
-        self.show_histogram([1,2,3], "Frequency of Frequencies", "Occurances", "Frequency (Hz)")
+        self.show_histogram(self.f_hist, "Frequency of Frequencies", "Occurances", "Frequency (Hz)")
 
     def show_histogram(self, data, title, x, y):
         hc = HistogramController(self.app.m_frame)
@@ -101,11 +106,14 @@ class MainController(object):
     def on_update_stats(self, evt):
         start_datetime, end_datetime = self.get_stats_times()
         
-        def on_stats_update_ui(means, medians, maximums, minimums, std, voltages):
+        def on_stats_update_ui(means, medians, maximums, minimums, std, voltages=[], currents=[], power=[], freq=[]):
             if means is None:
                 print "Failed"
                 return
-
+            self.v_hist = voltages
+            self.c_hist = currents 
+            self.p_hist = power
+            self.f_hist = freq
             # Mean
             self.app.m_frame.voltage_mean.SetLabel(str(means[0]) + " V")
             self.app.m_frame.current_mean.SetLabel(str(means[1]) + " A")
