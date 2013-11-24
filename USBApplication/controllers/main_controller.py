@@ -4,6 +4,7 @@ from ui.WattrMainFrame import WattrMainFrame
 from controllers.graph_controller import GraphController
 from controllers.device_selector_controller import DeviceSelectorController
 from controllers.database_controller import DatabaseController
+from controllers.histogram_controller import HistogramController
 from lib.wattrlib import WattrLib
 from lib.lib import wx_datetime_to_python_datetime
 from lib.lib import fill_wx_date_with_time
@@ -24,6 +25,13 @@ class MainController(object):
         self.app.m_frame.stats_update_button.Bind(wx.EVT_BUTTON, self.on_update_stats)
         self.app.m_frame.disconnect_button.Bind(wx.EVT_BUTTON, self.on_disconnect)
 
+        # Histogram buttons
+        self.app.m_frame.voltage_histogram.Bind(wx.EVT_BUTTON, self.on_voltage_histogram)
+        self.app.m_frame.current_histogram.Bind(wx.EVT_BUTTON, self.on_current_histogram)
+        self.app.m_frame.power_histogram.Bind(wx.EVT_BUTTON, self.on_power_histogram)
+        self.app.m_frame.power_factor_histogram.Bind(wx.EVT_BUTTON, self.on_power_factor_histogram)
+        self.app.m_frame.frequency_histogram.Bind(wx.EVT_BUTTON, self.on_frequency_histogram)
+
         #Database Selection
         if not self.wattrlib.is_database_defined():
             database_controller = DatabaseController(app.m_frame, self)
@@ -32,12 +40,32 @@ class MainController(object):
         #Device Selection
         self.show_device_selector()
 
-        app.SetTopWindow(app.m_frame)
+        app.SetTopWindow(self.app.m_frame)
 
         # Setup Graph for testing atm
-        graph_controller = GraphController(app.m_frame.m_panel4)
-        app.m_frame.m_panel4 = graph_controller.get_view()
-        graph_controller.graph()
+        #graph_controller = GraphController(app.m_frame.m_panel4)
+        #app.m_frame.m_panel4 = graph_controller.get_view()
+        #graph_controller.graph()
+
+    def on_voltage_histogram(self, evt):
+        self.show_histogram([1,2,3], "Frequency of Voltage", "Occurances", "Voltage (V)")
+
+    def on_current_histogram(self, evt):
+        self.show_histogram([1,2,3], "Frequency of Current", "Occurances", "Current (A)")
+
+    def on_power_histogram(self, evt):
+        self.show_histogram([1,2,3], "Frequency of Power", "Occurances", "Power, (W)")
+
+    def on_power_factor_histogram(self, evt):
+        self.show_histogram([1,2,3], "Frequency of Power Factor", "Occurances", "Power Factor")
+
+    def on_frequency_histogram(self, evt):
+        self.show_histogram([1,2,3], "Frequency of Frequencies", "Occurances", "Frequency (Hz)")
+
+    def show_histogram(self, data, title, x, y):
+        hc = HistogramController(self.app.m_frame)
+        hc.plot_hist(data, title, x, y)
+        hc.get_view().ShowModal()
 
     def show_device_selector(self):
         #Device Selection
@@ -73,7 +101,7 @@ class MainController(object):
     def on_update_stats(self, evt):
         start_datetime, end_datetime = self.get_stats_times()
         
-        def on_stats_update_ui(means, medians, maximums, minimums, std):
+        def on_stats_update_ui(means, medians, maximums, minimums, std, voltages):
             if means is None:
                 print "Failed"
                 return
@@ -108,7 +136,7 @@ class MainController(object):
             self.app.m_frame.power_std.SetLabel(str(std[2]) + " W")
             self.app.m_frame.freq_std.SetLabel(str(std[3]) + " Hz")
 
-        self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
+        self.wattrlib.get_data_stats(0, end_datetime, on_stats_update_ui) 
 
     def on_dump_data(self, evt):
         start_datetime, end_datetime = self.get_stats_times()    

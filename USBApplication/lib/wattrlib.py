@@ -2,7 +2,6 @@ import os
 import csv
 import numpy
 import sqlite3
-
 from threads.database_thread import DatabaseThread
 
 from tasks.sqlite.select_task import SQLiteSelectTask
@@ -78,7 +77,13 @@ class WattrLib(object):
             maximums = numpy.nanmax(rows, axis=0)
             minimums = numpy.nanmin(rows, axis=0)
             std = numpy.std(rows, axis=0)
-            handler_function(means, medians, maximums, minimums, std)
+
+            #Zips for histograms
+            zipped = zip(*rows)
+            voltages = zipped[0]
+            current = zipped[1]
+
+            handler_function(means, medians, maximums, minimums, std, voltages)
             
         task = SQLiteSelectDataTask(listener=stat_func)
         parameters = {
@@ -87,4 +92,3 @@ class WattrLib(object):
         }
         task.set_parameters(parameters)
         self.db_queue.put(task)
-

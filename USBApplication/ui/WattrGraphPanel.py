@@ -3,6 +3,7 @@ import matplotlib
 matplotlib.use('WXAgg')
 import matplotlib.cm as cm
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
+from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
 import wx
 import wx.xrc as xrc
@@ -15,23 +16,39 @@ import WattrGUI
 # Implementing GraphPanel
 class WattrGraphPanel( WattrGUI.GraphPanel ):
 
+    subplot = 0
+    plots = {}
+
     def __init__(self, parent, fgsize=None, dpi=None):
         super(WattrGraphPanel, self).__init__(parent)
         self.figure = Figure(fgsize, dpi)
-
         #Transparent figure face color
         self.figure.set_facecolor((0,0,0,0,))
-
-
-        self.plot = self.figure.add_subplot(111)
         self.canvas = FigureCanvasWxAgg(self, -1, self.figure)
         # Now put all into a sizer
         sizer = self.GetSizer()
         # This way of adding to sizer allows resizing
         sizer.Add(self.canvas, 1, wx.LEFT|wx.TOP|wx.GROW)
         # Best to allow the toolbar to resize!
+        self.toolbar = NavigationToolbar2Wx(self.canvas)
+        self.toolbar.Realize()
+        sizer.Add(self.toolbar, 0, wx.GROW)
         self.Fit()
 
+    def add_plot(self, x=1, y=1):
+        self.subplot += 1
+        plot = self.figure.add_subplot(x, y, self.subplot)
+        plot.ticklabel_format(axis='y', style='plain', useOffset=False)
+        plot.ticklabel_format(axis='x', style='plain', useOffset=False)
+        self.plots[self.subplot] = plot
+        return plot
+
+    def get_plot(self, num):
+        return self.plots.get(num, None)
+
+    def draw(self):
+        self.figure.canvas.draw()
+"""
     def plot_data(self, x, y, **kwargs):
         #self.plot.clear()
         self.plot.plot(x, y, **kwargs)
@@ -54,3 +71,4 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
 
     def set_label_y(self, label):
        self.plot.set_ylabel(label)
+"""

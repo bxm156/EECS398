@@ -2,47 +2,49 @@ import csv
 import wx
 
 from serial.tools import list_ports
-
+from controllers.base_controller import BaseController
 from ui.WattrDeviceSelectorDialog import WattrDeviceSelectorDialog
 
 
-class DeviceSelectorController(object):
+class DeviceSelectorController(BaseController):
+
+    view_class = WattrDeviceSelectorDialog
 
     def __init__(self, parent, listener):
-        super(DeviceSelectorController, self).__init__()
+        super(DeviceSelectorController, self).__init__(parent, listener)
         self.listener = listener
-        self.frame = WattrDeviceSelectorDialog(parent)
-        self.frame.cancel_device_selection.Bind(wx.EVT_BUTTON, self.on_cancel)
-        self.frame.refresh.Bind(wx.EVT_BUTTON, self.on_refresh)
-        self.frame.device_choice.Bind(wx.EVT_CHOICE, self.update_select_state)
-        self.frame.select_device.Bind(wx.EVT_BUTTON, self.on_select)
+        self.panel.cancel_device_selection.Bind(wx.EVT_BUTTON, self.on_cancel)
+        self.panel.refresh.Bind(wx.EVT_BUTTON, self.on_refresh)
+        self.panel.device_choice.Bind(wx.EVT_CHOICE, self.update_select_state)
+        self.panel.select_device.Bind(wx.EVT_BUTTON, self.on_select)
         self.list_devices()
 
-    def get_view(self):
-        return self.frame
+    def on_close(self, evt):
+        super(DeviceSelectorController, self).on_close(evt)
+        self.listener.exit()
 
     def list_devices(self):
-        self.frame.device_choice.Clear()
-        self.frame.device_choice.Insert('None', 0)
+        self.panel.device_choice.Clear()
+        self.panel.device_choice.Insert('None', 0)
         devs = [d[0] for d in list_ports.comports()]
-        self.frame.device_choice.AppendItems(devs)
+        self.panel.device_choice.AppendItems(devs)
     
     def on_cancel(self, event):
        self.listener.exit()
 
     def on_select(self, event):
-        current_selection = self.frame.device_choice.GetCurrentSelection()
-        selected_string = self.frame.device_choice.GetString(current_selection)
+        current_selection = self.panel.device_choice.GetCurrentSelection()
+        selected_string = self.panel.device_choice.GetString(current_selection)
         self.listener.on_device_selected(selected_string)
         self.get_view().EndModal(0)
 
 
     def update_select_state(self, event):
-        current_selection = self.frame.device_choice.GetCurrentSelection()
+        current_selection = self.panel.device_choice.GetCurrentSelection()
         if current_selection == 0:
-            self.frame.select_device.Enable(False)
+            self.panel.select_device.Enable(False)
         else:
-            self.frame.select_device.Enable(True)
+            self.panel.select_device.Enable(True)
 
     def on_refresh(self, event):
         self.list_devices()

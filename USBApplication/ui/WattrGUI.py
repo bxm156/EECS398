@@ -132,7 +132,7 @@ class MainFrame ( wx.Frame ):
 		
 		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		fgSizer12 = wx.FlexGridSizer( 6, 7, 5, 10 )
+		fgSizer12 = wx.FlexGridSizer( 6, 8, 5, 10 )
 		fgSizer12.SetFlexibleDirection( wx.BOTH )
 		fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
@@ -163,6 +163,9 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText184.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText184, 0, wx.ALL, 5 )
 		
+		
+		fgSizer12.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
 		self.m_staticText1213 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1213.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText1213, 0, wx.ALL, 5 )
@@ -190,6 +193,9 @@ class MainFrame ( wx.Frame ):
 		self.voltage_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.voltage_std.Wrap( -1 )
 		fgSizer12.Add( self.voltage_std, 0, wx.ALL, 5 )
+		
+		self.voltage_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.voltage_histogram, 0, wx.ALL, 5 )
 		
 		self.m_staticText127 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText127.Wrap( -1 )
@@ -219,6 +225,9 @@ class MainFrame ( wx.Frame ):
 		self.current_std.Wrap( -1 )
 		fgSizer12.Add( self.current_std, 0, wx.ALL, 5 )
 		
+		self.current_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.current_histogram, 0, wx.ALL, 5 )
+		
 		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText166.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText166, 0, wx.ALL, 5 )
@@ -246,6 +255,9 @@ class MainFrame ( wx.Frame ):
 		self.power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.power_std.Wrap( -1 )
 		fgSizer12.Add( self.power_std, 0, wx.ALL, 5 )
+		
+		self.power_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.power_histogram, 0, wx.ALL, 5 )
 		
 		self.m_staticText172 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText172.Wrap( -1 )
@@ -275,6 +287,9 @@ class MainFrame ( wx.Frame ):
 		self.power_factory_std.Wrap( -1 )
 		fgSizer12.Add( self.power_factory_std, 0, wx.ALL, 5 )
 		
+		self.power_factor_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.power_factor_histogram, 0, wx.ALL, 5 )
+		
 		self.m_staticText178 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText178.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText178, 0, wx.ALL, 5 )
@@ -302,6 +317,9 @@ class MainFrame ( wx.Frame ):
 		self.freq_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.freq_std.Wrap( -1 )
 		fgSizer12.Add( self.freq_std, 0, wx.ALL, 5 )
+		
+		self.frequency_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.frequency_histogram, 0, wx.ALL, 5 )
 		
 		
 		bSizer37.Add( fgSizer12, 1, wx.EXPAND, 5 )
@@ -372,6 +390,29 @@ class MainFrame ( wx.Frame ):
 	
 
 ###########################################################################
+## Class HistogramDialog
+###########################################################################
+
+class HistogramDialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Histogram", pos = wx.DefaultPosition, size = wx.Size( 600,500 ), style = wx.DEFAULT_DIALOG_STYLE|wx.MINIMIZE_BOX|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer38 = wx.BoxSizer( wx.VERTICAL )
+		
+		
+		self.SetSizer( bSizer38 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
 ## Class GraphPanel
 ###########################################################################
 
@@ -381,9 +422,6 @@ class GraphPanel ( wx.Panel ):
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
 		
 		vert_sizer = wx.BoxSizer( wx.VERTICAL )
-		
-		self.import_csv = wx.Button( self, wx.ID_ANY, u"Import CSV", wx.DefaultPosition, wx.DefaultSize, 0 )
-		vert_sizer.Add( self.import_csv, 0, wx.ALL, 5 )
 		
 		
 		self.SetSizer( vert_sizer )
