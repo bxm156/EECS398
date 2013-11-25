@@ -84,7 +84,7 @@ class MainController(object):
 
     def on_device_selected(self, com_string):
         # Start threads
-        self.wattrlib.start_threads()
+        self.wattrlib.start_threads(com_string)
 
     def on_database_selected(self, db_path):
         self.wattrlib.set_database_path(db_path)

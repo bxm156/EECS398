@@ -1,10 +1,9 @@
 import sqlite3
-import base_thread
-
+from threads.task_thread import TaskThread
 from tasks.sqlite.create_task import SQLiteCreateTask
 
 
-class DatabaseThread(base_thread.BaseThread):
+class DatabaseThread(TaskThread):
 
     def __init__(self, connection_string, work_queue):
         super(DatabaseThread, self).__init__(work_queue=work_queue)
@@ -17,9 +16,9 @@ class DatabaseThread(base_thread.BaseThread):
 
     def connect(self):
         self.connection = sqlite3.connect(self.connection_string)
-        self.connection.execute("PRAGMA foreign_keys = ON;")
-        self.connection.execute("PRAGMA synchronous = OFF")
-        self.connection.execute("PRAGMA journal_mode = MEMORY;")
+        #self.connection.execute("PRAGMA foreign_keys = ON;")
+        #self.connection.execute("PRAGMA synchronous = OFF")
+        #self.connection.execute("PRAGMA journal_mode = MEMORY;")
 
     def cleanup(self):
         self.disconnect()

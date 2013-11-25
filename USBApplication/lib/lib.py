@@ -1,4 +1,13 @@
 import datetime
+from collections import namedtuple
+
+Packet = namedtuple("Packet",[
+    'flags','epoch', 'voltage',
+    'current', 'period', 'active_power',
+    'reactive_power', 'apparent_power',
+    'phase_angle', 'power_factor'
+    ]
+)
 
 def fill_wx_date_with_time(wx_date, wx_time):
     wx_date.SetHour(wx_time.GetHour())

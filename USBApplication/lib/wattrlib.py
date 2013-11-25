@@ -3,9 +3,10 @@ import csv
 import numpy
 import sqlite3
 from threads.database_thread import DatabaseThread
-
+from threads.serial_thread import SerialThread
 from tasks.sqlite.select_task import SQLiteSelectTask
 from tasks.sqlite.select_data_task import SQLiteSelectDataTask
+from tasks.sqlite.insert_task import SQLiteInsertTask
 from pypreferences import PyPreferences
 
 import Queue
@@ -36,13 +37,18 @@ class WattrLib(object):
         super(WattrLib, self).__init__()
         self.preferences = PyPreferences('wattr')
 
-    def start_threads(self):
+    def start_threads(self, serial_path):
         assert 'db_path' in self.preferences
+        assert serial_path
         self.db_thread = DatabaseThread(self.preferences['db_path'], self.db_queue)
         self.db_thread.start()
 
+        self.serial_thread = SerialThread(serial_path, self.serial_queue, self)
+        self.serial_thread.start()
+
     def stop_threads(self):
         self.db_thread.join()
+        self.serial_thread.join()
 
     def is_database_defined(self):
         if 'db_path' in self.preferences:
@@ -50,6 +56,11 @@ class WattrLib(object):
 
     def set_database_path(self, path):
         self.preferences['db_path'] = path
+
+    def insert_data(self, tuple_list):
+        task = SQLiteInsertTask()
+        task.set_values(tuple_list)
+        self.db_queue.put(task)
 
     def dump_data(self, start_time, end_time, path):
         

@@ -3,54 +3,90 @@ Wattr Project: Arduino Simulation device
 by Bryan Marty
 */
 
-const int BUFFER_SIZE = 80;
+typedef struct Reading {
+	uint32_t epoch;				// Unix Epoch of time
+	uint32_t voltage;				// ADE7753_REGISTER_VRMS
+	uint32_t current;				// ADE7753_REGISTER_IRMS
+	uint32_t period;				// ADE7753_REGISTER_PERIOD
+	uint32_t active_power;		// ADE7753_REGISTER_RAENERGY
+	uint32_t reactive_power;		// ADE7753_REGISTER_LVARENERGY
+	uint32_t apparent_power;		// ADE7753_REGISTER_LVAENERGY
+	uint32_t phase_angle;			// TODO: Calculation
+	uint32_t power_factor;			// TODO: Calculation
+	
+	uint8_t voltage_checksum;
+	uint8_t current_checksum;
+	uint8_t frequency_checksum;
+	uint8_t active_power_checksum;
+	
+	uint8_t reactive_power_checksum;
+	uint8_t apparent_power_checksum;
+	uint8_t phase_angle_checksum;
+	uint8_t power_factor_checksum;
+} Reading;
+
+
+typedef struct Packet {
+	uint8_t		header;
+	uint8_t		reserved;
+	uint16_t	flags;
+	
+	Reading		payload;
+	
+	uint32_t	checksum;
+	uint32_t	footer;
+} Packet;
 
 void setup()                    // run once, when the sketch starts
 {
   Serial.begin(9600);
   Serial.flush();
-  randomSeed(analogRead(0));
 }
 
-int readline(int c, char *buffer, int len) {
-  static int pos = 0;
-  int rpos;
-  
-  if (c > 0) {
-    switch (c) {
-      case '\n':
-       rpos = pos;
-       pos = 0;
-       return rpos;
-     default:
-     if (pos < len-1) {
-       buffer[pos++] = c;
-       buffer[pos] = 0;
-     }
-    }
-  }
-  return -1;
+void print_uint32(uint32_t data)
+{
+  Serial.write(data);
+  Serial.write(data>>8);
+  Serial.write(data>>16);
+  Serial.write(data>>24);
 }
-
-void handlecommand(char *command) {
-  String str = String(command);
-  if (str == "TEST") {
-    Serial.print(millis());
-    Serial.print(",");
-    Serial.print(random(0,5));
-    Serial.print(",");
-    Serial.print(random(58,62));
-    Serial.println();
-    Serial.println("END");
-  }
+void print_uint16(uint32_t data)
+{
+  Serial.write(data);
+  Serial.write(data>>8);
 }
-  
 void loop()
 {
-  static char buffer[BUFFER_SIZE];
-  if(readline(Serial.read(), buffer, BUFFER_SIZE) > 0) {
-    //Serial.println(buffer);
-    handlecommand(buffer);
-  }
+  Packet p;
+  p.header = 0x59;
+  p.reserved = 0;
+  p.flags = 0x01;
+  p.checksum = 0;
+  p.footer = 0x5254464d;
+  Serial.write(p.header);
+  Serial.write(p.reserved);
+  print_uint16(p.flags);
+  print_uint32(p.payload.epoch);
+  print_uint32(p.payload.voltage);
+  print_uint32(p.payload.current);
+  print_uint32(p.payload.period);
+  print_uint32(p.payload.active_power);
+  print_uint32(p.payload.reactive_power);
+  print_uint32(p.payload.apparent_power);
+  print_uint32(p.payload.phase_angle);
+  print_uint32(p.payload.power_factor);
+  Serial.write(p.payload.voltage_checksum);
+  Serial.write(p.payload.current_checksum);
+  Serial.write(p.payload.frequency_checksum);
+  Serial.write(p.payload.active_power_checksum);
+  Serial.write(p.payload.reactive_power_checksum);
+  Serial.write(p.payload.apparent_power_checksum);
+  Serial.write(p.payload.phase_angle_checksum);
+  Serial.write(p.payload.power_factor_checksum);
+  print_uint32(p.checksum);
+  print_uint32(p.footer);
 }
+
+
+
 
