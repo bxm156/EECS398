@@ -132,7 +132,7 @@ class MainFrame ( wx.Frame ):
 		
 		bSizer37 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		fgSizer12 = wx.FlexGridSizer( 6, 8, 5, 10 )
+		fgSizer12 = wx.FlexGridSizer( 9, 8, 5, 10 )
 		fgSizer12.SetFlexibleDirection( wx.BOTH )
 		fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
@@ -228,40 +228,164 @@ class MainFrame ( wx.Frame ):
 		self.current_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer12.Add( self.current_histogram, 0, wx.ALL, 5 )
 		
-		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Period", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText166.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText166, 0, wx.ALL, 5 )
 		
-		self.power_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_mean.Wrap( -1 )
-		fgSizer12.Add( self.power_mean, 0, wx.ALL, 5 )
+		self.period_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_mean.Wrap( -1 )
+		fgSizer12.Add( self.period_mean, 0, wx.ALL, 5 )
 		
-		self.power_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_median.Wrap( -1 )
-		fgSizer12.Add( self.power_median, 0, wx.ALL, 5 )
+		self.period_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_median.Wrap( -1 )
+		fgSizer12.Add( self.period_median, 0, wx.ALL, 5 )
 		
-		self.power_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_mode.Wrap( -1 )
-		fgSizer12.Add( self.power_mode, 0, wx.ALL, 5 )
+		self.period_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_mode.Wrap( -1 )
+		fgSizer12.Add( self.period_mode, 0, wx.ALL, 5 )
 		
-		self.power_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_max.Wrap( -1 )
-		fgSizer12.Add( self.power_max, 0, wx.ALL, 5 )
+		self.period_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_max.Wrap( -1 )
+		fgSizer12.Add( self.period_max, 0, wx.ALL, 5 )
 		
-		self.power_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_min.Wrap( -1 )
-		fgSizer12.Add( self.power_min, 0, wx.ALL, 5 )
+		self.period_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_min.Wrap( -1 )
+		fgSizer12.Add( self.period_min, 0, wx.ALL, 5 )
 		
-		self.power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_std.Wrap( -1 )
-		fgSizer12.Add( self.power_std, 0, wx.ALL, 5 )
+		self.period_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.period_std.Wrap( -1 )
+		fgSizer12.Add( self.period_std, 0, wx.ALL, 5 )
 		
-		self.power_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer12.Add( self.power_histogram, 0, wx.ALL, 5 )
+		self.period_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.period_histogram, 0, wx.ALL, 5 )
 		
-		self.m_staticText172 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText172 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Active Power", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText172.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText172, 0, wx.ALL, 5 )
+		
+		self.active_power_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_mean.Wrap( -1 )
+		fgSizer12.Add( self.active_power_mean, 0, wx.ALL, 5 )
+		
+		self.active_power_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_median.Wrap( -1 )
+		fgSizer12.Add( self.active_power_median, 0, wx.ALL, 5 )
+		
+		self.active_power_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_mode.Wrap( -1 )
+		fgSizer12.Add( self.active_power_mode, 0, wx.ALL, 5 )
+		
+		self.active_power_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_max.Wrap( -1 )
+		fgSizer12.Add( self.active_power_max, 0, wx.ALL, 5 )
+		
+		self.active_power_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_min.Wrap( -1 )
+		fgSizer12.Add( self.active_power_min, 0, wx.ALL, 5 )
+		
+		self.active_power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.active_power_std.Wrap( -1 )
+		fgSizer12.Add( self.active_power_std, 0, wx.ALL, 5 )
+		
+		self.active_power_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.active_power_histogram, 0, wx.ALL, 5 )
+		
+		self.m_staticText178 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Reactive Power", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText178.Wrap( -1 )
+		fgSizer12.Add( self.m_staticText178, 0, wx.ALL, 5 )
+		
+		self.reactive_power_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_mean.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_mean, 0, wx.ALL, 5 )
+		
+		self.reactive_power_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_median.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_median, 0, wx.ALL, 5 )
+		
+		self.reactive_power_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_mode.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_mode, 0, wx.ALL, 5 )
+		
+		self.reactive_power_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_max.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_max, 0, wx.ALL, 5 )
+		
+		self.reactive_power_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_min.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_min, 0, wx.ALL, 5 )
+		
+		self.reactive_power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.reactive_power_std.Wrap( -1 )
+		fgSizer12.Add( self.reactive_power_std, 0, wx.ALL, 5 )
+		
+		self.reactive_power_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.reactive_power_histogram, 0, wx.ALL, 5 )
+		
+		self.m_staticText193 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Apparent Power", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText193.Wrap( -1 )
+		fgSizer12.Add( self.m_staticText193, 0, wx.ALL, 5 )
+		
+		self.apparent_power_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_mean.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_mean, 0, wx.ALL, 5 )
+		
+		self.apparent_power_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_median.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_median, 0, wx.ALL, 5 )
+		
+		self.apparent_power_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_mode.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_mode, 0, wx.ALL, 5 )
+		
+		self.apparent_power_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_max.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_max, 0, wx.ALL, 5 )
+		
+		self.apparent_power_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_min.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_min, 0, wx.ALL, 5 )
+		
+		self.apparent_power_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.apparent_power_std.Wrap( -1 )
+		fgSizer12.Add( self.apparent_power_std, 0, wx.ALL, 5 )
+		
+		self.apparent_power_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.apparent_power_histogram, 0, wx.ALL, 5 )
+		
+		self.m_staticText200 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Phase Angle", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText200.Wrap( -1 )
+		fgSizer12.Add( self.m_staticText200, 0, wx.ALL, 5 )
+		
+		self.phase_angle_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_mean.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_mean, 0, wx.ALL, 5 )
+		
+		self.phase_angle_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_median.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_median, 0, wx.ALL, 5 )
+		
+		self.phase_angle_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_mode.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_mode, 0, wx.ALL, 5 )
+		
+		self.phase_angle_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_max.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_max, 0, wx.ALL, 5 )
+		
+		self.phase_angle_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_min.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_min, 0, wx.ALL, 5 )
+		
+		self.phase_angle_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.phase_angle_std.Wrap( -1 )
+		fgSizer12.Add( self.phase_angle_std, 0, wx.ALL, 5 )
+		
+		self.phase_angle_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer12.Add( self.phase_angle_histogram, 0, wx.ALL, 5 )
+		
+		self.m_staticText207 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Power Factor", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText207.Wrap( -1 )
+		fgSizer12.Add( self.m_staticText207, 0, wx.ALL, 5 )
 		
 		self.power_factor_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.power_factor_mean.Wrap( -1 )
@@ -283,43 +407,12 @@ class MainFrame ( wx.Frame ):
 		self.power_factor_min.Wrap( -1 )
 		fgSizer12.Add( self.power_factor_min, 0, wx.ALL, 5 )
 		
-		self.power_factory_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.power_factory_std.Wrap( -1 )
-		fgSizer12.Add( self.power_factory_std, 0, wx.ALL, 5 )
+		self.power_factor_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.power_factor_std.Wrap( -1 )
+		fgSizer12.Add( self.power_factor_std, 0, wx.ALL, 5 )
 		
 		self.power_factor_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer12.Add( self.power_factor_histogram, 0, wx.ALL, 5 )
-		
-		self.m_staticText178 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText178.Wrap( -1 )
-		fgSizer12.Add( self.m_staticText178, 0, wx.ALL, 5 )
-		
-		self.freq_mean = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_mean.Wrap( -1 )
-		fgSizer12.Add( self.freq_mean, 0, wx.ALL, 5 )
-		
-		self.freq_median = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_median.Wrap( -1 )
-		fgSizer12.Add( self.freq_median, 0, wx.ALL, 5 )
-		
-		self.freq_mode = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_mode.Wrap( -1 )
-		fgSizer12.Add( self.freq_mode, 0, wx.ALL, 5 )
-		
-		self.freq_max = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_max.Wrap( -1 )
-		fgSizer12.Add( self.freq_max, 0, wx.ALL, 5 )
-		
-		self.freq_min = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_min.Wrap( -1 )
-		fgSizer12.Add( self.freq_min, 0, wx.ALL, 5 )
-		
-		self.freq_std = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.freq_std.Wrap( -1 )
-		fgSizer12.Add( self.freq_std, 0, wx.ALL, 5 )
-		
-		self.frequency_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer12.Add( self.frequency_histogram, 0, wx.ALL, 5 )
 		
 		
 		bSizer37.Add( fgSizer12, 1, wx.EXPAND, 5 )

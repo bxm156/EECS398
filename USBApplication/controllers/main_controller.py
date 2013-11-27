@@ -33,9 +33,9 @@ class MainController(object):
         # Histogram buttons
         self.app.m_frame.voltage_histogram.Bind(wx.EVT_BUTTON, self.on_voltage_histogram)
         self.app.m_frame.current_histogram.Bind(wx.EVT_BUTTON, self.on_current_histogram)
-        self.app.m_frame.power_histogram.Bind(wx.EVT_BUTTON, self.on_power_histogram)
+        self.app.m_frame.active_power_histogram.Bind(wx.EVT_BUTTON, self.on_active_power_histogram)
         self.app.m_frame.power_factor_histogram.Bind(wx.EVT_BUTTON, self.on_power_factor_histogram)
-        self.app.m_frame.frequency_histogram.Bind(wx.EVT_BUTTON, self.on_frequency_histogram)
+        self.app.m_frame.period_histogram.Bind(wx.EVT_BUTTON, self.on_period_histogram)
 
         #Database Selection
         if not self.wattrlib.is_database_defined():
@@ -58,13 +58,13 @@ class MainController(object):
     def on_current_histogram(self, evt):
         self.show_histogram(self.c_hist, "Frequency of Current", "Occurances", "Current (A)")
 
-    def on_power_histogram(self, evt):
+    def on_active_power_histogram(self, evt):
         self.show_histogram(self.p_hist, "Frequency of Power", "Occurances", "Power, (W)")
 
     def on_power_factor_histogram(self, evt):
         self.show_histogram(self.pf_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
 
-    def on_frequency_histogram(self, evt):
+    def on_period_histogram(self, evt):
         self.show_histogram(self.f_hist, "Frequency of Frequencies", "Occurances", "Frequency (Hz)")
 
     def show_histogram(self, data, title, x, y):
@@ -117,32 +117,53 @@ class MainController(object):
             # Mean
             self.app.m_frame.voltage_mean.SetLabel(str(means[0]) + " V")
             self.app.m_frame.current_mean.SetLabel(str(means[1]) + " A")
-            self.app.m_frame.power_mean.SetLabel(str(means[2]) + " W")
-            self.app.m_frame.freq_mean.SetLabel(str(means[3]) + " Hz")
+            self.app.m_frame.period_mean.SetLabel(str(means[2]))
+            self.app.m_frame.active_power_mean.SetLabel(str(means[3]) + " W")
+            self.app.m_frame.reactive_power_mean.SetLabel(str(means[4]) + " W")
+            self.app.m_frame.apparent_power_mean.SetLabel(str(means[5]) + " W")
+            self.app.m_frame.phase_angle_mean.SetLabel(str(means[6]) + "")
+            self.app.m_frame.power_factor_mean.SetLabel(str(means[7]) + " W")
+
             
             # Median
             self.app.m_frame.voltage_median.SetLabel(str(medians[0]) + " V")
             self.app.m_frame.current_median.SetLabel(str(medians[1]) + " A")
-            self.app.m_frame.power_median.SetLabel(str(medians[2]) + " W")
-            self.app.m_frame.freq_median.SetLabel(str(medians[3]) + " Hz")
+            self.app.m_frame.period_median.SetLabel(str(medians[2]) + " Hz")
+            self.app.m_frame.active_power_median.SetLabel(str(medians[3]) + " W")
+            self.app.m_frame.reactive_power_median.SetLabel(str(medians[4]) + " W")
+            self.app.m_frame.apparent_power_median.SetLabel(str(medians[5]) + " W")
+            self.app.m_frame.phase_angle_median.SetLabel(str(medians[6]) + " W")
+            self.app.m_frame.power_factor_median.SetLabel(str(medians[7]) + " W")
 
             # Max
             self.app.m_frame.voltage_max.SetLabel(str(maximums[0]) + " V")
             self.app.m_frame.current_max.SetLabel(str(maximums[1]) + " A")
-            self.app.m_frame.power_max.SetLabel(str(maximums[2]) + " W")
-            self.app.m_frame.freq_max.SetLabel(str(maximums[3]) + " Hz")
+            self.app.m_frame.period_max.SetLabel(str(maximums[2]) + " Hz")
+            self.app.m_frame.active_power_max.SetLabel(str(maximums[3]) + " W")
+            self.app.m_frame.reactive_power_max.SetLabel(str(maximums[4]) + " W")
+            self.app.m_frame.apparent_power_max.SetLabel(str(maximums[5]) + " W")
+            self.app.m_frame.phase_angle_max.SetLabel(str(maximums[6]) + " W")
+            self.app.m_frame.power_factor_max.SetLabel(str(maximums[7]) + " W")
 
             # Min
             self.app.m_frame.voltage_min.SetLabel(str(minimums[0]) + " V")
             self.app.m_frame.current_min.SetLabel(str(minimums[1]) + " A")
-            self.app.m_frame.power_min.SetLabel(str(minimums[2]) + " W")
-            self.app.m_frame.freq_min.SetLabel(str(minimums[3]) + " Hz")
+            self.app.m_frame.period_min.SetLabel(str(minimums[2]) + " Hz")
+            self.app.m_frame.active_power_min.SetLabel(str(minimums[3]) + " W")
+            self.app.m_frame.reactive_power_min.SetLabel(str(minimums[4]) + " W")
+            self.app.m_frame.apparent_power_min.SetLabel(str(minimums[5]) + " W")
+            self.app.m_frame.phase_angle_min.SetLabel(str(minimums[6]) + " W")
+            self.app.m_frame.power_factor_min.SetLabel(str(minimums[7]) + " W")
 
             # STD
             self.app.m_frame.voltage_std.SetLabel(str(std[0]) + " V")
             self.app.m_frame.current_std.SetLabel(str(std[1]) + " A")
-            self.app.m_frame.power_std.SetLabel(str(std[2]) + " W")
-            self.app.m_frame.freq_std.SetLabel(str(std[3]) + " Hz")
+            self.app.m_frame.period_std.SetLabel(str(std[2]) + " W")
+            self.app.m_frame.active_power_std.SetLabel(str(std[3]) + " Hz")
+            self.app.m_frame.reactive_power_std.SetLabel(str(std[4]) + " Hz")
+            self.app.m_frame.apparent_power_std.SetLabel(str(std[5]) + " Hz")
+            self.app.m_frame.phase_angle_std.SetLabel(str(std[6]) + " Hz")
+            self.app.m_frame.power_factor_std.SetLabel(str(std[7]) + " Hz")
 
         self.wattrlib.get_data_stats(0, end_datetime, on_stats_update_ui) 
 
