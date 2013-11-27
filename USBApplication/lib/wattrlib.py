@@ -80,7 +80,6 @@ class WattrLib(object):
         def stat_func(task):
             rows = task.get_result()
             if not rows:
-                handler_function(None, None, None, None, None)
                 return
             rows = numpy.asarray(rows)
             means = numpy.mean(rows, axis=0)
@@ -93,10 +92,23 @@ class WattrLib(object):
             zipped = zip(*rows)
             voltages = zipped[0]
             currents = zipped[1]
-            power = zipped[2]
-            freq = zipped[3]
+            periods = zipped[2]
+            active_powers = zipped[3]
+            reactive_powers = zipped[4]
+            apparent_powers = zipped[5]
+            phase_angles = zipped[6]
+            power_factors = zipped[7]
 
-            handler_function(means, medians, maximums, minimums, std, voltages, currents, power, freq)
+            handler_function(means, medians, maximums, minimums, std,
+                voltages=voltages,
+                currents=currents,
+                periods=periods,
+                active_powers=active_powers,
+                reactive_powers=reactive_powers,
+                apparent_powers=apparent_powers,
+                phase_angles=phase_angles,
+                power_factors=power_factors
+           )
             
         task = SQLiteSelectDataTask(listener=stat_func)
         parameters = {
