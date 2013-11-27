@@ -16,9 +16,9 @@ class DatabaseThread(TaskThread):
 
     def connect(self):
         self.connection = sqlite3.connect(self.connection_string)
-        #self.connection.execute("PRAGMA foreign_keys = ON;")
-        #self.connection.execute("PRAGMA synchronous = OFF")
-        #self.connection.execute("PRAGMA journal_mode = MEMORY;")
+        self.connection.execute("PRAGMA foreign_keys = ON;")
+        self.connection.execute("PRAGMA synchronous = OFF")
+        self.connection.execute("PRAGMA journal_mode = MEMORY;")
 
     def cleanup(self):
         self.disconnect()

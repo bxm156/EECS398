@@ -13,7 +13,6 @@ class SQLiteInsertTask(SQLiteTask):
     def run(self, connection):
         assert self.tuple_list
         cur = connection.cursor()
-        print self.tuple_list
         cur.executemany(self.query, self.tuple_list)
         connection.commit()
 
