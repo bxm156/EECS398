@@ -37,10 +37,13 @@ typedef struct Packet {
 	uint32_t	footer;
 } Packet;
 
+int timestamp;
+
 void setup()                    // run once, when the sketch starts
 {
   Serial.begin(9600);
   Serial.flush();
+  timestamp = 0;
 }
 
 void print_uint32(uint32_t data)
@@ -61,6 +64,8 @@ void loop()
   p.header = 0x59;
   p.reserved = 0;
   p.flags = 0x01;
+  p.payload.epoch = timestamp++;
+  p.payload.voltage = 120;
   p.checksum = 0;
   p.footer = 0x5254464d;
   Serial.write(p.header);

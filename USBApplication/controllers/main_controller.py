@@ -1,10 +1,12 @@
 import wx
-
+import time
+import threading
 from ui.WattrMainFrame import WattrMainFrame
 from controllers.graph_controller import GraphController
 from controllers.device_selector_controller import DeviceSelectorController
 from controllers.database_controller import DatabaseController
 from controllers.histogram_controller import HistogramController
+from tasks.sqlite.select_latest_data_task import SQLiteSelectLatestDataTask
 from lib.wattrlib import WattrLib
 from lib.lib import wx_datetime_to_python_datetime
 from lib.lib import fill_wx_date_with_time
@@ -29,6 +31,7 @@ class MainController(object):
         self.app.m_frame.stats_dump_raw_data.Bind(wx.EVT_BUTTON, self.on_dump_data)
         self.app.m_frame.stats_update_button.Bind(wx.EVT_BUTTON, self.on_update_stats)
         self.app.m_frame.disconnect_button.Bind(wx.EVT_BUTTON, self.on_disconnect)
+        self.app.m_frame.Bind(wx.EVT_CLOSE, self.on_exit)
 
         # Histogram buttons
         self.app.m_frame.voltage_histogram.Bind(wx.EVT_BUTTON, self.on_voltage_histogram)
@@ -62,19 +65,19 @@ class MainController(object):
         self.show_histogram(self.current_hist, "Frequency of Current", "Occurances", "Current (A)")
 
     def on_period_histogram(self, evt):
-        self.show_histogram(self.period_hist, "Frequency of Frequencies", "Occurances", "Frequency (Hz)")
+        self.show_histogram(self.period_hist, "Frequency of Period", "Occurances", "Period")
  
     def on_active_power_histogram(self, evt):
-        self.show_histogram(self.active_power_hist, "Frequency of Power", "Occurances", "Power, (W)")
+        self.show_histogram(self.active_power_hist, "Frequency of Active Power", "Occurances", "Active Power, (W)")
 
     def on_reactive_power_histogram(self, evt):
-        self.show_histogram(self.reactive_power_hist, "Frequency of Power", "Occurances", "Power, (W)")
+        self.show_histogram(self.reactive_power_hist, "Frequency of Reactive Power", "Occurances", "Reactive Power, (VAR)")
 
     def on_apparent_power_histogram(self, evt):
-        self.show_histogram(self.apparent_power_hist, "Frequency of Power", "Occurances", "Power, (W)")
+        self.show_histogram(self.apparent_power_hist, "Frequency of Apparent Power", "Occurances", "Apparent Power, (VA)")
 
     def on_phase_angle_histogram(self, evt):
-        self.show_histogram(self.phase_angle_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
+        self.show_histogram(self.phase_angle_hist, "Frequency of Phase Angle", "Occurances", "Phase Angle")
 
     def on_power_factor_histogram(self, evt):
         self.show_histogram(self.power_factor_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
@@ -97,7 +100,25 @@ class MainController(object):
 
     def on_device_selected(self, com_string):
         # Start threads
-        self.wattrlib.start_threads(com_string)
+        self.wattrlib.start_threads(com_string, SQLiteSelectLatestDataTask(listener=self.on_update_ui))
+
+    def on_update_ui(self, task):
+        results = task.get_result()
+        if len(results) != 1:
+            return
+        result = results[0]
+        try:
+            self.app.m_frame.device_latest_time.SetLabel(str(result[1]))
+            self.app.m_frame.device_latest_voltage.SetLabel(str(result[2]) + " V")
+            self.app.m_frame.device_latest_current.SetLabel(str(result[3]) + " A")
+            self.app.m_frame.device_latest_period.SetLabel(str(result[4]))
+            self.app.m_frame.device_latest_active_power.SetLabel(str(result[5]) + " W")
+            self.app.m_frame.device_latest_reactive_power.SetLabel(str(result[6]) + " VAR")
+            self.app.m_frame.device_latest_apparent_power.SetLabel(str(result[7]) + " VA")
+            self.app.m_frame.device_latest_phase_angle.SetLabel(str(result[8]))
+            self.app.m_frame.device_latest_power_factor.SetLabel(str(result[9]))
+        except wx.PyDeadObjectError:
+            pass
 
     def on_database_selected(self, db_path):
         self.wattrlib.set_database_path(db_path)
@@ -188,7 +209,7 @@ class MainController(object):
             self.app.m_frame.phase_angle_std.SetLabel(str(std[6]) + " Hz")
             self.app.m_frame.power_factor_std.SetLabel(str(std[7]) + " Hz")
 
-        self.wattrlib.get_data_stats(0, end_datetime, on_stats_update_ui) 
+        self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
 
     def on_dump_data(self, evt):
         start_datetime, end_datetime = self.get_stats_times()    
@@ -203,5 +224,6 @@ class MainController(object):
     def exit(self):
         self.app.Exit()
 
-    def on_exit(self):
+    def on_exit(self, evt=None):
         self.wattrlib.stop_threads()
+        self.app.Exit()

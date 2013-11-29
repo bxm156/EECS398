@@ -22,25 +22,26 @@ class WattrLib(object):
     preferences = None
 
     data_field_names = [
-        'id',
-        'device_id',
-        'timestamp',
+        'flags',
+        'epoch',
         'voltage',
         'current',
-        'power',
-        'spike',
-        'dip',
-        'failure'
+        'period',
+        'active_power',
+        'reactive_power',
+        'apparent_power',
+        'phase_angle',
+        'power_factor'
     ]
 
     def __init__(self):
         super(WattrLib, self).__init__()
         self.preferences = PyPreferences('wattr')
 
-    def start_threads(self, serial_path):
+    def start_threads(self, serial_path, database_idle_func=None):
         assert 'db_path' in self.preferences
         assert serial_path
-        self.db_thread = DatabaseThread(self.preferences['db_path'], self.db_queue)
+        self.db_thread = DatabaseThread(self.preferences['db_path'], self.db_queue, database_idle_func)
         self.db_thread.start()
 
         self.serial_thread = SerialThread(serial_path, self.serial_queue, self)

@@ -5,10 +5,11 @@ from tasks.sqlite.create_task import SQLiteCreateTask
 
 class DatabaseThread(TaskThread):
 
-    def __init__(self, connection_string, work_queue):
+    def __init__(self, connection_string, work_queue, idle_task=None):
         super(DatabaseThread, self).__init__(work_queue=work_queue)
         self.connection_string = connection_string
         assert self.connection_string
+        self.idle_task = idle_task
 
     def setup(self):
         self.connect()
@@ -28,3 +29,9 @@ class DatabaseThread(TaskThread):
 
     def handle_task(self, task):
         task.run(self.connection)
+
+    def idle(self):
+        if self.idle_task:
+            self.idle_task.run(self.connection)
+            if self.idle_task.listener:
+                self.idle_task.listener(self.idle_task)

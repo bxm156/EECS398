@@ -50,45 +50,77 @@ class MainFrame ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_staticText10 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Voltage:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText79 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText79.Wrap( -1 )
+		fgSizer3.Add( self.m_staticText79, 0, wx.ALL, 5 )
+		
+		self.device_latest_time = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_time.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_time, 0, wx.ALL, 5 )
+		
+		self.m_staticText10 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"RMS Voltage:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText10.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText10, 0, wx.ALL, 5 )
 		
-		self.m_staticText11 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"5V", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText11.Wrap( -1 )
-		fgSizer3.Add( self.m_staticText11, 0, wx.ALL, 5 )
+		self.device_latest_voltage = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_voltage.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_voltage, 0, wx.ALL, 5 )
 		
-		self.m_staticText14 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Current:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText14 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"RMS Current:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText14.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText14, 0, wx.ALL, 5 )
 		
-		self.m_staticText15 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"1A", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText15.Wrap( -1 )
-		fgSizer3.Add( self.m_staticText15, 0, wx.ALL, 5 )
+		self.device_latest_current = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_current.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_current, 0, wx.ALL, 5 )
 		
-		self.m_staticText16 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText81 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Period", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText81.Wrap( -1 )
+		fgSizer3.Add( self.m_staticText81, 0, wx.ALL, 5 )
+		
+		self.device_latest_period = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_period.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_period, 0, wx.ALL, 5 )
+		
+		self.m_staticText16 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Active Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText16.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText16, 0, wx.ALL, 5 )
 		
-		self.m_staticText17 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"10W", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText17.Wrap( -1 )
-		fgSizer3.Add( self.m_staticText17, 0, wx.ALL, 5 )
+		self.device_latest_active_power = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_active_power.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_active_power, 0, wx.ALL, 5 )
 		
-		self.m_staticText12 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Power Factor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText12 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Reactive Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText12.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText12, 0, wx.ALL, 5 )
 		
-		self.m_staticText131 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText131.Wrap( -1 )
-		fgSizer3.Add( self.m_staticText131, 0, wx.ALL, 5 )
+		self.device_latest_reactive_power = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_reactive_power.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_reactive_power, 0, wx.ALL, 5 )
 		
-		self.m_staticText141 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText141 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Apparent Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText141.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText141, 0, wx.ALL, 5 )
 		
-		self.m_staticText151 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"10 MHz", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText151.Wrap( -1 )
-		fgSizer3.Add( self.m_staticText151, 0, wx.ALL, 5 )
+		self.device_latest_apparent_power = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_apparent_power.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_apparent_power, 0, wx.ALL, 5 )
+		
+		self.m_staticText83 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Phase Angle:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText83.Wrap( -1 )
+		fgSizer3.Add( self.m_staticText83, 0, wx.ALL, 5 )
+		
+		self.device_latest_phase_angle = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_phase_angle.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_phase_angle, 0, wx.ALL, 5 )
+		
+		self.m_staticText85 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Power Factor", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText85.Wrap( -1 )
+		fgSizer3.Add( self.m_staticText85, 0, wx.ALL, 5 )
+		
+		self.device_latest_power_factor = wx.StaticText( self.m_panel5, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_latest_power_factor.Wrap( -1 )
+		fgSizer3.Add( self.device_latest_power_factor, 0, wx.ALL, 5 )
 		
 		
 		self.m_panel5.SetSizer( fgSizer3 )
@@ -166,7 +198,7 @@ class MainFrame ( wx.Frame ):
 		
 		fgSizer12.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
 		
-		self.m_staticText1213 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1213 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"RMS Voltage", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1213.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText1213, 0, wx.ALL, 5 )
 		
@@ -197,7 +229,7 @@ class MainFrame ( wx.Frame ):
 		self.voltage_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer12.Add( self.voltage_histogram, 0, wx.ALL, 5 )
 		
-		self.m_staticText127 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Current", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText127 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"RMS Current", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText127.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText127, 0, wx.ALL, 5 )
 		

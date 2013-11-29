@@ -9,7 +9,6 @@ class SQLiteSelectTask(SQLiteTask):
 
     def run(self, connection):
         super(SQLiteSelectTask, self).run(connection)
-        assert self.parameters
         cur = connection.cursor()
         cur.execute(self.query, self.parameters)
         self.result = cur.fetchall()
