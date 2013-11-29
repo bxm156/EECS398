@@ -140,7 +140,7 @@ class MainController(object):
     def on_update_stats(self, evt):
         start_datetime, end_datetime = self.get_stats_times()
         
-        def on_stats_update_ui(means, medians, maximums, minimums, std, **kwargs):
+        def on_stats_update_ui(means, medians, modes, maximums, minimums, std, **kwargs):
             voltages = kwargs.get('voltages', [])
             currents = kwargs.get('currents', [])
             periods = kwargs.get('periods', [])
@@ -178,6 +178,16 @@ class MainController(object):
             self.app.m_frame.apparent_power_median.SetLabel(str(medians[5]) + " VA")
             self.app.m_frame.phase_angle_median.SetLabel(str(medians[6]) + " W")
             self.app.m_frame.power_factor_median.SetLabel(str(medians[7]) + " W")
+
+            # Mode
+            self.app.m_frame.voltage_mode.SetLabel(str(modes[0]) + " V")
+            self.app.m_frame.current_mode.SetLabel(str(modes[1]) + " A")
+            self.app.m_frame.period_mode.SetLabel(str(modes[2]) + " Hz")
+            self.app.m_frame.active_power_mode.SetLabel(str(modes[3]) + " W")
+            self.app.m_frame.reactive_power_mode.SetLabel(str(modes[4]) + " VAR")
+            self.app.m_frame.apparent_power_mode.SetLabel(str(modes[5]) + " VA")
+            self.app.m_frame.phase_angle_mode.SetLabel(str(modes[6]) + " W")
+            self.app.m_frame.power_factor_mode.SetLabel(str(modes[7]) + " W")
 
             # Max
             self.app.m_frame.voltage_max.SetLabel(str(maximums[0]) + " V")

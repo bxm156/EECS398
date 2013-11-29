@@ -1,6 +1,7 @@
 import os
 import csv
 import numpy
+import scipy.stats
 import sqlite3
 from threads.database_thread import DatabaseThread
 from threads.serial_thread import SerialThread
@@ -85,6 +86,7 @@ class WattrLib(object):
             rows = numpy.asarray(rows)
             means = numpy.mean(rows, axis=0)
             medians = numpy.median(rows, axis=0)
+            modes = scipy.stats.mode(rows, axis=0)[0][0]
             maximums = numpy.nanmax(rows, axis=0)
             minimums = numpy.nanmin(rows, axis=0)
             std = numpy.std(rows, axis=0)
@@ -100,7 +102,7 @@ class WattrLib(object):
             phase_angles = zipped[6]
             power_factors = zipped[7]
 
-            handler_function(means, medians, maximums, minimums, std,
+            handler_function(means, medians, modes, maximums, minimums, std,
                 voltages=voltages,
                 currents=currents,
                 periods=periods,
