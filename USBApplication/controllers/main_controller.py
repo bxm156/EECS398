@@ -1,6 +1,5 @@
 import wx
-import time
-import threading
+import datetime
 from ui.WattrMainFrame import WattrMainFrame
 from controllers.graph_controller import GraphController
 from controllers.device_selector_controller import DeviceSelectorController
@@ -108,7 +107,7 @@ class MainController(object):
             return
         result = results[0]
         try:
-            self.app.m_frame.device_latest_time.SetLabel(str(result[1]))
+            self.app.m_frame.device_latest_time.SetLabel(datetime.datetime.fromtimestamp(result[1]).strftime('%Y-%m-%d %H:%M:%S'))
             self.app.m_frame.device_latest_voltage.SetLabel(str(result[2]) + " V")
             self.app.m_frame.device_latest_current.SetLabel(str(result[3]) + " A")
             self.app.m_frame.device_latest_period.SetLabel(str(result[4]))
@@ -165,59 +164,59 @@ class MainController(object):
             self.app.m_frame.active_power_mean.SetLabel(str(means[3]) + " W")
             self.app.m_frame.reactive_power_mean.SetLabel(str(means[4]) + " VAR")
             self.app.m_frame.apparent_power_mean.SetLabel(str(means[5]) + " VA")
-            self.app.m_frame.phase_angle_mean.SetLabel(str(means[6]) + "")
-            self.app.m_frame.power_factor_mean.SetLabel(str(means[7]) + " W")
+            self.app.m_frame.phase_angle_mean.SetLabel(str(means[6]))
+            self.app.m_frame.power_factor_mean.SetLabel(str(means[7]))
 
             
             # Median
             self.app.m_frame.voltage_median.SetLabel(str(medians[0]) + " V")
             self.app.m_frame.current_median.SetLabel(str(medians[1]) + " A")
-            self.app.m_frame.period_median.SetLabel(str(medians[2]) + " Hz")
+            self.app.m_frame.period_median.SetLabel(str(medians[2]))
             self.app.m_frame.active_power_median.SetLabel(str(medians[3]) + " W")
             self.app.m_frame.reactive_power_median.SetLabel(str(medians[4]) + " VAR")
             self.app.m_frame.apparent_power_median.SetLabel(str(medians[5]) + " VA")
-            self.app.m_frame.phase_angle_median.SetLabel(str(medians[6]) + " W")
-            self.app.m_frame.power_factor_median.SetLabel(str(medians[7]) + " W")
+            self.app.m_frame.phase_angle_median.SetLabel(str(medians[6]))
+            self.app.m_frame.power_factor_median.SetLabel(str(medians[7]))
 
             # Mode
             self.app.m_frame.voltage_mode.SetLabel(str(modes[0]) + " V")
             self.app.m_frame.current_mode.SetLabel(str(modes[1]) + " A")
-            self.app.m_frame.period_mode.SetLabel(str(modes[2]) + " Hz")
+            self.app.m_frame.period_mode.SetLabel(str(modes[2]))
             self.app.m_frame.active_power_mode.SetLabel(str(modes[3]) + " W")
             self.app.m_frame.reactive_power_mode.SetLabel(str(modes[4]) + " VAR")
             self.app.m_frame.apparent_power_mode.SetLabel(str(modes[5]) + " VA")
-            self.app.m_frame.phase_angle_mode.SetLabel(str(modes[6]) + " W")
-            self.app.m_frame.power_factor_mode.SetLabel(str(modes[7]) + " W")
+            self.app.m_frame.phase_angle_mode.SetLabel(str(modes[6]))
+            self.app.m_frame.power_factor_mode.SetLabel(str(modes[7]))
 
             # Max
             self.app.m_frame.voltage_max.SetLabel(str(maximums[0]) + " V")
             self.app.m_frame.current_max.SetLabel(str(maximums[1]) + " A")
-            self.app.m_frame.period_max.SetLabel(str(maximums[2]) + " Hz")
+            self.app.m_frame.period_max.SetLabel(str(maximums[2]))
             self.app.m_frame.active_power_max.SetLabel(str(maximums[3]) + " W")
             self.app.m_frame.reactive_power_max.SetLabel(str(maximums[4]) + " VAR")
             self.app.m_frame.apparent_power_max.SetLabel(str(maximums[5]) + " VA")
-            self.app.m_frame.phase_angle_max.SetLabel(str(maximums[6]) + " W")
-            self.app.m_frame.power_factor_max.SetLabel(str(maximums[7]) + " W")
+            self.app.m_frame.phase_angle_max.SetLabel(str(maximums[6]))
+            self.app.m_frame.power_factor_max.SetLabel(str(maximums[7]))
 
             # Min
             self.app.m_frame.voltage_min.SetLabel(str(minimums[0]) + " V")
             self.app.m_frame.current_min.SetLabel(str(minimums[1]) + " A")
-            self.app.m_frame.period_min.SetLabel(str(minimums[2]) + " Hz")
+            self.app.m_frame.period_min.SetLabel(str(minimums[2]))
             self.app.m_frame.active_power_min.SetLabel(str(minimums[3]) + " W")
             self.app.m_frame.reactive_power_min.SetLabel(str(minimums[4]) + " VAR")
             self.app.m_frame.apparent_power_min.SetLabel(str(minimums[5]) + " VA")
-            self.app.m_frame.phase_angle_min.SetLabel(str(minimums[6]) + " W")
-            self.app.m_frame.power_factor_min.SetLabel(str(minimums[7]) + " W")
+            self.app.m_frame.phase_angle_min.SetLabel(str(minimums[6]))
+            self.app.m_frame.power_factor_min.SetLabel(str(minimums[7]))
 
             # STD
             self.app.m_frame.voltage_std.SetLabel(str(std[0]) + " V")
             self.app.m_frame.current_std.SetLabel(str(std[1]) + " A")
-            self.app.m_frame.period_std.SetLabel(str(std[2]) + " W")
+            self.app.m_frame.period_std.SetLabel(str(std[2]))
             self.app.m_frame.active_power_std.SetLabel(str(std[3]) + " W")
             self.app.m_frame.reactive_power_std.SetLabel(str(std[4]) + " VAR")
             self.app.m_frame.apparent_power_std.SetLabel(str(std[5]) + " VA")
-            self.app.m_frame.phase_angle_std.SetLabel(str(std[6]) + " Hz")
-            self.app.m_frame.power_factor_std.SetLabel(str(std[7]) + " Hz")
+            self.app.m_frame.phase_angle_std.SetLabel(str(std[6]))
+            self.app.m_frame.power_factor_std.SetLabel(str(std[7]))
 
         self.wattrlib.get_data_stats(start_datetime, end_datetime, on_stats_update_ui) 
 
