@@ -5,10 +5,13 @@ import scipy.stats
 import sqlite3
 from threads.database_thread import DatabaseThread
 from threads.serial_thread import SerialThread
+from threads.realtime_thread import RealTimeThread
 from tasks.sqlite.select_task import SQLiteSelectTask
 from tasks.sqlite.select_data_task import SQLiteSelectDataTask
+from tasks.sqlite.select_data_since_task import SQLiteSelectDataSinceTask
 from tasks.sqlite.insert_task import SQLiteInsertTask
 from pypreferences import PyPreferences
+from realtime_store import RealTimeStore
 
 import Queue
 
@@ -34,6 +37,10 @@ class WattrLib(object):
         'phase_angle',
         'power_factor'
     ]
+
+    realtime_store = RealTimeStore()
+    realtime_thread = None
+    realtime_listeners = 0
 
     def __init__(self):
         super(WattrLib, self).__init__()
@@ -120,3 +127,28 @@ class WattrLib(object):
         }
         task.set_parameters(parameters)
         self.db_queue.put(task)
+
+    def get_realtime_store(self):
+        return self.realtime_store
+
+    def start_realtime_collection(self):
+        self.should_collect_realtime = True
+        self.realtime_listeners += 1
+        if not self.realtime_thread:
+            self.realtime_thread = RealTimeThread(self)
+            self.realtime_thread.start()
+    def stop_realtime_collection(self):
+        self.realtime_listeners -= 1
+        if self.realtime_listeners <= 0:
+            self._stop_realtime_collection()
+            self.realtime_thread = None
+
+    def _stop_realtime_collection(self):
+        self.realtime_thread.join()
+        self.realtime_store.clear()
+
+    def get_realtime_data(self, since, listener_func):
+        task = SQLiteSelectDataSinceTask(listener_func)
+        task.set_parameters({'since_time': since})
+        self.db_queue.put(task)
+

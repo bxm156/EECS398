@@ -42,12 +42,9 @@ class WattrGraphPanel( WattrGUI.GraphPanel ):
         plot.ticklabel_format(axis='x', style='plain', useOffset=False)
         self.plots[self.subplot] = plot
         return plot
-
-    def get_plot(self, num):
-        return self.plots.get(num, None)
-
+    
     def draw(self):
-        self.figure.canvas.draw()
+        self.canvas.draw()
 """
     def plot_data(self, x, y, **kwargs):
         #self.plot.clear()

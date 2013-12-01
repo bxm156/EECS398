@@ -227,8 +227,16 @@ class MainFrame ( wx.Frame ):
 		self.voltage_std.Wrap( -1 )
 		fgSizer12.Add( self.voltage_std, 0, wx.ALL, 5 )
 		
+		bSizer38 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.voltage_histogram = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Histogram", wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer12.Add( self.voltage_histogram, 0, wx.ALL, 5 )
+		bSizer38.Add( self.voltage_histogram, 0, wx.ALL, 5 )
+		
+		self.graph_voltage = wx.Button( self.m_panel_stats, wx.ID_ANY, u"Graph", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer38.Add( self.graph_voltage, 0, wx.ALL, 5 )
+		
+		
+		fgSizer12.Add( bSizer38, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText127 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"RMS Current", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText127.Wrap( -1 )
@@ -732,6 +740,86 @@ class DatabaseSelectorDialog ( wx.Dialog ):
 		
 		self.SetSizer( bSizer17 )
 		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class ControlBox
+###########################################################################
+
+class ControlBox ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL )
+		
+		static_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"label" ), wx.VERTICAL )
+		
+		self.radio_auto = wx.RadioButton( self, wx.ID_ANY, u"Auto", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP )
+		self.radio_auto.SetValue( True ) 
+		static_box_sizer.Add( self.radio_auto, 0, wx.ALL, 5 )
+		
+		bSizer33 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.radio_manual = wx.RadioButton( self, wx.ID_ANY, u"Manual", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer33.Add( self.radio_manual, 0, wx.ALL, 5 )
+		
+		self.manual_text = wx.TextCtrl( self, wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 40,-1 ), wx.TE_PROCESS_ENTER )
+		self.manual_text.Enable( False )
+		
+		bSizer33.Add( self.manual_text, 0, wx.ALL, 5 )
+		
+		
+		static_box_sizer.Add( bSizer33, 1, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( static_box_sizer )
+		self.Layout()
+		static_box_sizer.Fit( self )
+	
+	def __del__( self ):
+		pass
+	
+
+###########################################################################
+## Class AnimatedGraphDialog
+###########################################################################
+
+class AnimatedGraphDialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Graph", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer23 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.pause_button = wx.Button( self, wx.ID_ANY, u"Pause", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.pause_button, 0, wx.ALL, 5 )
+		
+		self.show_grid = wx.CheckBox( self, wx.ID_ANY, u"Show Grid", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.show_grid, 0, wx.ALL, 5 )
+		
+		self.show_x = wx.CheckBox( self, wx.ID_ANY, u"Show X Label", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.show_x, 0, wx.ALL, 5 )
+		
+		
+		bSizer23.Add( bSizer22, 0, wx.ALIGN_LEFT|wx.EXPAND, 5 )
+		
+		self.controls_sizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		
+		bSizer23.Add( self.controls_sizer, 0, wx.EXPAND, 5 )
+		
+		
+		self.SetSizer( bSizer23 )
+		self.Layout()
+		bSizer23.Fit( self )
 		
 		self.Centre( wx.BOTH )
 	

@@ -3,3 +3,6 @@ def enum(*sequential, **named):
     reverse = dict((value, key) for key, value in enums.iteritems())
     enums['reverse_mapping'] = reverse
     return type('Enum', (), enums)
+
+
+READING = enum('VOLTEAGE', 'CURRENT')

@@ -5,10 +5,12 @@ from controllers.graph_controller import GraphController
 from controllers.device_selector_controller import DeviceSelectorController
 from controllers.database_controller import DatabaseController
 from controllers.histogram_controller import HistogramController
+from controllers.animated_graph_controller import AnimatedGraphController
 from tasks.sqlite.select_latest_data_task import SQLiteSelectLatestDataTask
 from lib.wattrlib import WattrLib
 from lib.lib import wx_datetime_to_python_datetime
 from lib.lib import fill_wx_date_with_time
+
 
 class MainController(object):
 
@@ -41,6 +43,9 @@ class MainController(object):
         self.app.m_frame.apparent_power_histogram.Bind(wx.EVT_BUTTON, self.on_apparent_power_histogram)
         self.app.m_frame.phase_angle_histogram.Bind(wx.EVT_BUTTON, self.on_phase_angle_histogram)
         self.app.m_frame.power_factor_histogram.Bind(wx.EVT_BUTTON, self.on_power_factor_histogram)
+
+        # Graph buttons
+        self.app.m_frame.graph_voltage.Bind(wx.EVT_BUTTON, self.on_graph_voltage)
 
         #Database Selection
         if not self.wattrlib.is_database_defined():
@@ -86,6 +91,10 @@ class MainController(object):
         hc = HistogramController(self.app.m_frame)
         hc.plot_hist(data, title, x, y)
         hc.get_view().ShowModal()
+
+    def on_graph_voltage(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib)
+        vg.get_view().Show()
 
     def show_device_selector(self):
         #Device Selection
