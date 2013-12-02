@@ -5,4 +5,5 @@ def enum(*sequential, **named):
     return type('Enum', (), enums)
 
 
-READING = enum('VOLTEAGE', 'CURRENT')
+READING = enum('VOLTAGE', 'CURRENT', 'PERIOD', 'ACTIVE_POWER',
+        'REACTIVE_POWER', 'APPARENT_POWER', 'PHASE_ANGLE', 'POWER_FACTOR')

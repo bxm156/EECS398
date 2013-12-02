@@ -12,10 +12,10 @@ class AnimatedGraphController(BaseController):
         self.wattrlib = wattrlib
         self.wattrlib.start_realtime_collection()
         self.data_source = self.wattrlib.get_realtime_store()
-        self.get_view().init_plot()
+        self.get_view().init_plot(0)
         self.get_view().start(self.data_source)
 
     def on_close(self, evt):
-        self.wattrlib.stop_realtime_collection()
         self.get_view().stop()
+        self.wattrlib.stop_realtime_collection()
         super(AnimatedGraphController, self).on_close(evt)

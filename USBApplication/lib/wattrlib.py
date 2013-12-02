@@ -148,7 +148,7 @@ class WattrLib(object):
         self.realtime_store.clear()
 
     def get_realtime_data(self, since, listener_func):
-        task = SQLiteSelectDataSinceTask(listener_func)
+        task = SQLiteSelectDataSinceTask(listener=listener_func)
         task.set_parameters({'since_time': since})
         self.db_queue.put(task)
 

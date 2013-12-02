@@ -51,7 +51,8 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         text = "Resume" if self.paused else "Pause"
         self.pause_button.SetLabel(text)
 
-    def init_plot(self):
+    def init_plot(self, rtype):
+        self.rtype = rtype
         self.axes = self.graph_panel.add_plot()
         self.axes.set_axis_bgcolor('black')
         self.plot_data = self.axes.plot(self.data,
@@ -66,7 +67,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         self.axes.xaxis.set_major_formatter(ticker.FuncFormatter(format_date))
 
     def draw_plot(self):
-        cols = zip(*self.data)#[-self.DEFAULT_WIN_LENGTH:])
+        cols = zip(*self.data)
         if not cols:
             print "No Data"
             return
@@ -105,9 +106,12 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
 
     def on_redraw_timer(self, evt):
         if not self.paused:
-            value = self.data_source.next_voltage()
-            if value:
-                self.data.append(value)
+            while True:
+                value = self.data_source.next_reading(self.rtype)
+                if value:
+                    self.data.append(value)
+                else:
+                    break
         self.draw_plot()
 
     def start(self, data_source):
