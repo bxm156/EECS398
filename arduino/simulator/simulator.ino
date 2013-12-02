@@ -37,7 +37,7 @@ typedef struct Packet {
 	uint32_t	footer;
 } Packet;
 
-uint32_t timestamp = 1385944261 - 18000;
+uint32_t timestamp = 1385953613 - 18000;
 
 void setup()                    // run once, when the sketch starts
 {

@@ -17,7 +17,7 @@ class WattrMainFrame(WattrGUI.MainFrame):
         start_text = wx.StaticText(date_picker_container, wx.ID_ANY, u"Start Date/Time:", wx.DefaultPosition, wx.DefaultSize, 0)
         self.start_date_picker = wx.DatePickerCtrl(date_picker_container, wx.ID_ANY, wx.DateTimeFromTimeT(1), wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT|wx.DP_SHOWCENTURY)
         self.start_time_spinner = wx.SpinButton( self.m_panel_stats, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.start_time_picker = TimeCtrl(date_picker_container, wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize, spinButton=self.start_time_spinner, limited=False)
+        self.start_time_picker = TimeCtrl(date_picker_container, wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize, spinButton=self.start_time_spinner, limited=False, oob_color='white')
 
         #Add Start Date/Time to Panel
         date_picker_sizer.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -35,7 +35,7 @@ class WattrMainFrame(WattrGUI.MainFrame):
         end_text = wx.StaticText(date_picker_container, wx.ID_ANY, u"End Date/Time:", wx.DefaultPosition, wx.DefaultSize, 0)
         self.end_date_picker = wx.DatePickerCtrl(date_picker_container, wx.ID_ANY, wx.DateTime.Today(), wx.DefaultPosition, wx.DefaultSize, wx.DP_DEFAULT|wx.DP_SHOWCENTURY)
         self.end_time_spinner = wx.SpinButton( self.m_panel_stats, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.end_time_picker = TimeCtrl(date_picker_container, wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize, spinButton=self.end_time_spinner, limited=False, value='23:59:59')
+        self.end_time_picker = TimeCtrl(date_picker_container, wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize, spinButton=self.end_time_spinner, limited=False, value='23:59:59', oob_color='white')
 
         #Add End Date/Time to Panel
         date_picker_sizer.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
