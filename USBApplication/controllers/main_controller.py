@@ -87,7 +87,7 @@ class MainController(object):
         self.show_histogram(self.power_factor_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
 
 
-    def show_histogram(self, data, title, x, y):
+    def show_histogram(self, data, title, y, x):
         hc = HistogramController(self.app.m_frame)
         hc.plot_hist(data, title, x, y)
         hc.get_view().ShowModal()
@@ -116,7 +116,8 @@ class MainController(object):
             return
         result = results[0]
         try:
-            self.app.m_frame.device_latest_time.SetLabel(datetime.datetime.fromtimestamp(result[1]).strftime('%Y-%m-%d %H:%M:%S'))
+            datetimestr = datetime.datetime.fromtimestamp(result[1]).strftime('%Y-%m-%d %H:%M:%S')
+            self.app.m_frame.device_latest_time.SetLabel(datetimestr)
             self.app.m_frame.device_latest_voltage.SetLabel(str(result[2]) + " V")
             self.app.m_frame.device_latest_current.SetLabel(str(result[3]) + " A")
             self.app.m_frame.device_latest_period.SetLabel(str(result[4]))
@@ -166,6 +167,15 @@ class MainController(object):
             self.apparent_power_hist = apparent_powers
             self.phase_angle_hist = phase_angles
             self.power_factor_hist = power_factors
+
+            round_func = lambda x: round(x, 2)
+            means = map(round_func, means)
+            medians = map(round_func, medians)
+            modes = map(round_func, modes)
+            maximums = map(round_func, maximums)
+            minimums = map(round_func, minimums)
+            std = map(round_func, std)
+
             # Mean
             self.app.m_frame.voltage_mean.SetLabel(str(means[0]) + " V")
             self.app.m_frame.current_mean.SetLabel(str(means[1]) + " A")

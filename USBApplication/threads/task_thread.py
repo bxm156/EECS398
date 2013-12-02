@@ -30,7 +30,7 @@ class TaskThread(BaseThread):
 
     def loop(self):
         try:
-            task = self.work_queue.get(True, 0.001)
+            task = self.work_queue.get(True, 0.0001)
             self.handle_task(task)
             if task.listener:
                 task.listener(task)

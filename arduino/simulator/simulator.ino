@@ -37,13 +37,12 @@ typedef struct Packet {
 	uint32_t	footer;
 } Packet;
 
-int timestamp;
+uint32_t timestamp = 1385944261 - 18000;
 
 void setup()                    // run once, when the sketch starts
 {
   Serial.begin(9600);
   Serial.flush();
-  timestamp = 0;
 }
 
 void print_uint32(uint32_t data)
@@ -64,8 +63,8 @@ void loop()
   p.header = 0x59;
   p.reserved = 0;
   p.flags = 0x01;
-  p.payload.epoch = timestamp++;
-  p.payload.voltage = 120;
+  p.payload.epoch = timestamp + millis()/1000;
+  p.payload.voltage = random(110, 130);
   p.checksum = 0;
   p.footer = 0x5254464d;
   Serial.write(p.header);
@@ -90,6 +89,7 @@ void loop()
   Serial.write(p.payload.power_factor_checksum);
   print_uint32(p.checksum);
   print_uint32(p.footer);
+  delay(100);
 }
 
 

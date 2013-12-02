@@ -58,6 +58,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
             linewidth=1,
             color=(1,1,0),
         )[0]
+        return
         def format_date(x, pos=None):
             if x <= 0:
                 return "0"
@@ -66,6 +67,9 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
 
     def draw_plot(self):
         cols = zip(*self.data)#[-self.DEFAULT_WIN_LENGTH:])
+        if not cols:
+            print "No Data"
+            return
         x_data = cols[0]
         y_data = cols[1]
         if self.max_x.is_auto():

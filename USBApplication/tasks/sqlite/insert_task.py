@@ -15,4 +15,3 @@ class SQLiteInsertTask(SQLiteTask):
         cur = connection.cursor()
         cur.executemany(self.query, self.tuple_list)
         connection.commit()
-

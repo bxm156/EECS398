@@ -37,6 +37,7 @@ class DeviceSelectorController(BaseController):
         selected_string = self.panel.device_choice.GetString(current_selection)
         self.listener.on_device_selected(selected_string)
         self.get_view().EndModal(0)
+        self.get_view().Destroy()
 
 
     def update_select_state(self, event):
