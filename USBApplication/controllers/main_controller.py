@@ -10,7 +10,7 @@ from tasks.sqlite.select_latest_data_task import SQLiteSelectLatestDataTask
 from lib.wattrlib import WattrLib
 from lib.lib import wx_datetime_to_python_datetime
 from lib.lib import fill_wx_date_with_time
-
+from lib.types import READING
 
 class MainController(object):
 
@@ -46,6 +46,13 @@ class MainController(object):
 
         # Graph buttons
         self.app.m_frame.graph_voltage.Bind(wx.EVT_BUTTON, self.on_graph_voltage)
+        self.app.m_frame.graph_period.Bind(wx.EVT_BUTTON, self.on_graph_frequency)
+        self.app.m_frame.graph_current.Bind(wx.EVT_BUTTON, self.on_graph_current)
+        self.app.m_frame.graph_active_power.Bind(wx.EVT_BUTTON, self.on_graph_active_power)
+        self.app.m_frame.graph_reactive_power.Bind(wx.EVT_BUTTON, self.on_graph_reactive_power)
+        self.app.m_frame.graph_apparent_power.Bind(wx.EVT_BUTTON, self.on_graph_apparent_power)
+        self.app.m_frame.graph_phase_angle.Bind(wx.EVT_BUTTON, self.on_graph_phase_angle)
+        self.app.m_frame.graph_power_factor.Bind(wx.EVT_BUTTON, self.on_graph_power_factor)
 
         #Database Selection
         if not self.wattrlib.is_database_defined():
@@ -92,8 +99,37 @@ class MainController(object):
         hc.plot_hist(data, title, x, y)
         hc.get_view().ShowModal()
 
+    # Graph function
     def on_graph_voltage(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.VOLTAGE )
+        vg.get_view().Show()
+
+    def on_graph_current(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.CURRENT)
+        vg.get_view().Show()
+
+    def on_graph_frequency(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PERIOD)
+        vg.get_view().Show()
+
+    def on_graph_active_power(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.ACTIVE_POWER)
+        vg.get_view().Show()
+
+    def on_graph_reactive_power(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.REACTIVE_POWER)
+        vg.get_view().Show()
+
+    def on_graph_apparent_power(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.APPARENT_POWER)
+        vg.get_view().Show()
+
+    def on_graph_phase_angle(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PHASE_ANGLE)
+        vg.get_view().Show()
+
+    def on_graph_power_factor(self, evt):
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.POWER_FACTOR)
         vg.get_view().Show()
 
     def show_device_selector(self):

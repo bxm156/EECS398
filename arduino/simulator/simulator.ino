@@ -2,7 +2,7 @@
 Wattr Project: Arduino Simulation device
 by Bryan Marty
 */
-
+#include <stdarg.h>
 typedef struct Reading {
 	uint32_t epoch;				// Unix Epoch of time
 	uint32_t voltage;				// ADE7753_REGISTER_VRMS
@@ -37,7 +37,7 @@ typedef struct Packet {
 	uint32_t	footer;
 } Packet;
 
-uint32_t timestamp = 1385953613 - 18000;
+uint32_t timestamp =1;
 
 void setup()                    // run once, when the sketch starts
 {
@@ -57,7 +57,18 @@ void print_uint16(uint32_t data)
   Serial.write(data);
   Serial.write(data>>8);
 }
-void loop()
+
+
+void p(char *fmt, ... ){
+        char tmp[128]; // resulting string limited to 128 chars
+        va_list args;
+        va_start (args, fmt );
+        vsnprintf(tmp, 128, fmt, args);
+        va_end (args);
+        Serial.print(tmp);
+}
+
+void loop2()
 {
   Packet p;
   p.header = 0x59;
@@ -91,6 +102,17 @@ void loop()
   print_uint32(p.footer);
   delay(100);
 }
+
+void loop()
+{
+  //"%u,%u,%u,%f,%f,%f,%f,%f,%f,%f,%f"
+ 
+ Serial.print(timestamp);
+ timestamp++;
+ Serial.print(",3,0,121.82,0.0,60.13,1.0,2.0,3.0,0.0,1.9\r\n");
+ delay(100);
+}
+
 
 
 
