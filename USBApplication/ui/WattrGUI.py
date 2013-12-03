@@ -823,6 +823,24 @@ class AnimatedGraphDialog ( wx.Dialog ):
 		
 		bSizer23 = wx.BoxSizer( wx.VERTICAL )
 		
+		self.alert_panel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.alert_panel.SetBackgroundColour( wx.Colour( 255, 0, 15 ) )
+		self.alert_panel.Hide()
+		self.alert_panel.SetMinSize( wx.Size( -1,40 ) )
+		self.alert_panel.SetMaxSize( wx.Size( -1,140 ) )
+		
+		bSizer33 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.alert_text = wx.StaticText( self.alert_panel, wx.ID_ANY, u"Spike Detected", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE )
+		self.alert_text.Wrap( -1 )
+		bSizer33.Add( self.alert_text, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		self.alert_panel.SetSizer( bSizer33 )
+		self.alert_panel.Layout()
+		bSizer33.Fit( self.alert_panel )
+		bSizer23.Add( self.alert_panel, 0, wx.EXPAND |wx.ALL, 5 )
+		
 		bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.pause_button = wx.Button( self, wx.ID_ANY, u"Pause", wx.DefaultPosition, wx.DefaultSize, 0 )

@@ -5,7 +5,7 @@ import datetime
 import wx
 import WattrGUI
 import numpy
-
+from lib.types import READING
 from ui.WattrControlBox import WattrControlBox
 from ui.WattrGraphPanel import WattrGraphPanel
 # Implementing AnimatedGraphDialog
@@ -41,12 +41,24 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         self.show_grid.Bind(wx.EVT_CHECKBOX, self.on_show_grid)
         self.paused = False
 
+    def show_alert(self, text):
+        self.alert_text.SetLabel(text)
+        self.alert_panel.Show()
+        self.Layout()
+
+    def hide_alert(self):
+        self.alert_panel.Hide()
+        self.Layout()
 
     def on_show_grid(self, evt):
         self.draw_plot()
 
     def on_pause_button(self, evt):
         self.paused = not self.paused
+        if self.paused:
+            self.show_alert("Spike!")
+        else:
+            self.hide_alert()
 
     def on_update_pause_button(self, evt):
         text = "Resume" if self.paused else "Pause"
@@ -76,6 +88,13 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
             return
         x_data = cols[0]
         y_data = cols[1]
+
+        if self.rtype == READING.VOLTAGE:
+            if max(y_data) > 121:
+                self.show_alert("Spike Detected!")
+            if min(y_data) < 114:
+                self.show_alert("Sag Detected!")
+
         if self.max_x.is_auto():
            xmax = x_data[-1] #if len(x_data) > self.DEFAULT_X_MAX else datetime.datetime.now()
         else:
