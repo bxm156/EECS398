@@ -40,7 +40,7 @@ class RealTimeStore(object):
         reactive_powers= zipped[5]
         apparent_powers = zipped[6]
         phase_angles = zipped[7]
-        power_factors = zipped[2]
+        power_factors = zipped[8]
         for i in xrange(len(epochs)):
             self.voltage_queue.put((epochs[i], voltages[i],))
             self.current_queue.put((epochs[i], currents[i],))

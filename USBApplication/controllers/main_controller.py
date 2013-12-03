@@ -70,28 +70,28 @@ class MainController(object):
         #graph_controller.graph()
 
     def on_voltage_histogram(self, evt):
-        self.show_histogram(self.voltage_hist, "Frequency of Voltage", "Occurances", "Voltage (V)")
+        self.show_histogram(self.voltage_hist, "Counts of RMS Voltage", "Occurances", "Voltage (V)")
 
     def on_current_histogram(self, evt):
-        self.show_histogram(self.current_hist, "Frequency of Current", "Occurances", "Current (A)")
+        self.show_histogram(self.current_hist, "Counts of RMS Current", "Occurances", "Current (A)")
 
     def on_period_histogram(self, evt):
-        self.show_histogram(self.period_hist, "Frequency of Period", "Occurances", "Period")
+        self.show_histogram(self.period_hist, "Counts of Frequency", "Occurances", "Frequency (Hz)")
  
     def on_active_power_histogram(self, evt):
-        self.show_histogram(self.active_power_hist, "Frequency of Active Power", "Occurances", "Active Power, (W)")
+        self.show_histogram(self.active_power_hist, "Counts of Active Power", "Occurances", "Active Power (W)")
 
     def on_reactive_power_histogram(self, evt):
-        self.show_histogram(self.reactive_power_hist, "Frequency of Reactive Power", "Occurances", "Reactive Power, (VAR)")
+        self.show_histogram(self.reactive_power_hist, "Counts of Reactive Power", "Occurances", "Reactive Power (VAR)")
 
     def on_apparent_power_histogram(self, evt):
-        self.show_histogram(self.apparent_power_hist, "Frequency of Apparent Power", "Occurances", "Apparent Power, (VA)")
+        self.show_histogram(self.apparent_power_hist, "Counts of Apparent Power", "Occurances", "Apparent Power (VA)")
 
     def on_phase_angle_histogram(self, evt):
-        self.show_histogram(self.phase_angle_hist, "Frequency of Phase Angle", "Occurances", "Phase Angle")
+        self.show_histogram(self.phase_angle_hist, "Counts of Phase Angle", "Occurances", "Phase Angle")
 
     def on_power_factor_histogram(self, evt):
-        self.show_histogram(self.power_factor_hist, "Frequency of Power Factor", "Occurances", "Power Factor")
+        self.show_histogram(self.power_factor_hist, "Counts of Power Factor", "Occurances", "Power Factor")
 
 
     def show_histogram(self, data, title, y, x):
@@ -101,35 +101,35 @@ class MainController(object):
 
     # Graph function
     def on_graph_voltage(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.VOLTAGE )
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.VOLTAGE, y="RMS Voltage (V)", title="Voltage over Time")
         vg.get_view().Show()
 
     def on_graph_current(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.CURRENT)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.CURRENT, y="RMS Current (A)", title="Current over Time")
         vg.get_view().Show()
 
     def on_graph_frequency(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PERIOD)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PERIOD, y="Frequency (Hz)", title="Frequency over Time")
         vg.get_view().Show()
 
     def on_graph_active_power(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.ACTIVE_POWER)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.ACTIVE_POWER, y="Active Power (W)", title="Active Power over Time")
         vg.get_view().Show()
 
     def on_graph_reactive_power(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.REACTIVE_POWER)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.REACTIVE_POWER, y="Reactive Power(VAR)", title="Reactive Power over Time")
         vg.get_view().Show()
 
     def on_graph_apparent_power(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.APPARENT_POWER)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.APPARENT_POWER, y="Apparent Power (VA)", title="Apparent Power over Time")
         vg.get_view().Show()
 
     def on_graph_phase_angle(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PHASE_ANGLE)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.PHASE_ANGLE, y="Phase Angle", title="Phase Angle over Time")
         vg.get_view().Show()
 
     def on_graph_power_factor(self, evt):
-        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.POWER_FACTOR)
+        vg = AnimatedGraphController(self.app.m_frame, self.wattrlib, READING.POWER_FACTOR, y="Power Factor", title="Power Factor over Time")
         vg.get_view().Show()
 
     def show_device_selector(self):
@@ -156,7 +156,7 @@ class MainController(object):
             self.app.m_frame.device_latest_time.SetLabel(datetimestr)
             self.app.m_frame.device_latest_voltage.SetLabel(str(result[2]) + " V")
             self.app.m_frame.device_latest_current.SetLabel(str(result[3]) + " A")
-            self.app.m_frame.device_latest_period.SetLabel(str(result[4]))
+            self.app.m_frame.device_latest_period.SetLabel(str(result[4]) + " Hz")
             self.app.m_frame.device_latest_active_power.SetLabel(str(result[5]) + " W")
             self.app.m_frame.device_latest_reactive_power.SetLabel(str(result[6]) + " VAR")
             self.app.m_frame.device_latest_apparent_power.SetLabel(str(result[7]) + " VA")
@@ -215,7 +215,7 @@ class MainController(object):
             # Mean
             self.app.m_frame.voltage_mean.SetLabel(str(means[0]) + " V")
             self.app.m_frame.current_mean.SetLabel(str(means[1]) + " A")
-            self.app.m_frame.period_mean.SetLabel(str(means[2]))
+            self.app.m_frame.period_mean.SetLabel(str(means[2]) + " Hz")
             self.app.m_frame.active_power_mean.SetLabel(str(means[3]) + " W")
             self.app.m_frame.reactive_power_mean.SetLabel(str(means[4]) + " VAR")
             self.app.m_frame.apparent_power_mean.SetLabel(str(means[5]) + " VA")
@@ -226,7 +226,7 @@ class MainController(object):
             # Median
             self.app.m_frame.voltage_median.SetLabel(str(medians[0]) + " V")
             self.app.m_frame.current_median.SetLabel(str(medians[1]) + " A")
-            self.app.m_frame.period_median.SetLabel(str(medians[2]))
+            self.app.m_frame.period_median.SetLabel(str(medians[2]) + " Hz")
             self.app.m_frame.active_power_median.SetLabel(str(medians[3]) + " W")
             self.app.m_frame.reactive_power_median.SetLabel(str(medians[4]) + " VAR")
             self.app.m_frame.apparent_power_median.SetLabel(str(medians[5]) + " VA")
@@ -236,7 +236,7 @@ class MainController(object):
             # Mode
             self.app.m_frame.voltage_mode.SetLabel(str(modes[0]) + " V")
             self.app.m_frame.current_mode.SetLabel(str(modes[1]) + " A")
-            self.app.m_frame.period_mode.SetLabel(str(modes[2]))
+            self.app.m_frame.period_mode.SetLabel(str(modes[2]) + " Hz")
             self.app.m_frame.active_power_mode.SetLabel(str(modes[3]) + " W")
             self.app.m_frame.reactive_power_mode.SetLabel(str(modes[4]) + " VAR")
             self.app.m_frame.apparent_power_mode.SetLabel(str(modes[5]) + " VA")
@@ -246,7 +246,7 @@ class MainController(object):
             # Max
             self.app.m_frame.voltage_max.SetLabel(str(maximums[0]) + " V")
             self.app.m_frame.current_max.SetLabel(str(maximums[1]) + " A")
-            self.app.m_frame.period_max.SetLabel(str(maximums[2]))
+            self.app.m_frame.period_max.SetLabel(str(maximums[2]) + " Hz")
             self.app.m_frame.active_power_max.SetLabel(str(maximums[3]) + " W")
             self.app.m_frame.reactive_power_max.SetLabel(str(maximums[4]) + " VAR")
             self.app.m_frame.apparent_power_max.SetLabel(str(maximums[5]) + " VA")
@@ -256,7 +256,7 @@ class MainController(object):
             # Min
             self.app.m_frame.voltage_min.SetLabel(str(minimums[0]) + " V")
             self.app.m_frame.current_min.SetLabel(str(minimums[1]) + " A")
-            self.app.m_frame.period_min.SetLabel(str(minimums[2]))
+            self.app.m_frame.period_min.SetLabel(str(minimums[2]) + " Hz")
             self.app.m_frame.active_power_min.SetLabel(str(minimums[3]) + " W")
             self.app.m_frame.reactive_power_min.SetLabel(str(minimums[4]) + " VAR")
             self.app.m_frame.apparent_power_min.SetLabel(str(minimums[5]) + " VA")
@@ -266,7 +266,7 @@ class MainController(object):
             # STD
             self.app.m_frame.voltage_std.SetLabel(str(std[0]) + " V")
             self.app.m_frame.current_std.SetLabel(str(std[1]) + " A")
-            self.app.m_frame.period_std.SetLabel(str(std[2]))
+            self.app.m_frame.period_std.SetLabel(str(std[2]) + " Hz")
             self.app.m_frame.active_power_std.SetLabel(str(std[3]) + " W")
             self.app.m_frame.reactive_power_std.SetLabel(str(std[4]) + " VAR")
             self.app.m_frame.apparent_power_std.SetLabel(str(std[5]) + " VA")

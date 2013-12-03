@@ -52,9 +52,11 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         text = "Resume" if self.paused else "Pause"
         self.pause_button.SetLabel(text)
 
-    def init_plot(self, rtype):
+    def init_plot(self, rtype, y, title):
         self.rtype = rtype
         self.axes = self.graph_panel.add_plot()
+        self.axes.set_title(title)
+        self.axes.set_ylabel(y)
         self.axes.set_axis_bgcolor('black')
         self.plot_data = self.axes.plot(self.data,
             linewidth=1,
