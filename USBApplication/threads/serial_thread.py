@@ -41,7 +41,7 @@ class SerialThread(TaskThread):
         line = self.serial_connection.readline()
         try:
             data = numpy.genfromtxt(cStringIO.StringIO(line), dtype=(int,int,int,float,float,float,float,float,float,float,float), delimiter=",")
-            datetime.datetime.fromtimestamp(int(data['f0']))
+            datetime.datetime.fromtimestamp(int(data['f0'])) 
             p = Packet(
                 flags=int(data['f2']),
                 epoch=int(data['f0']),
@@ -54,6 +54,8 @@ class SerialThread(TaskThread):
                 phase_angle=float(data['f10']),
                 power_factor=float(data['f9']),
             )
+            if numpy.isnan(p[9]) or numpy.isnan(p[8]) or numpy.isnan(p[7]) or numpy.isnan(p[6]) or numpy.isnan(p[5]) or numpy.isnan(p[4]) or numpy.isnan(p[3]) or numpy.isnan(p[2]) or numpy.isnan(p[1]) or numpy.isnan(p[0]):
+                raise ValueError
             self.wattrlib.insert_data([p])
         except:
             pass
