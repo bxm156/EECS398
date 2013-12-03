@@ -134,7 +134,7 @@ class MainController(object):
 
     def show_device_selector(self):
         #Device Selection
-        device_selector = DeviceSelectorController(self.app.m_frame.m_panel4, self)
+        device_selector = DeviceSelectorController(self.app.m_frame, self)
         device_selector.get_view().ShowModal()
 
     def on_disconnect(self, evt):

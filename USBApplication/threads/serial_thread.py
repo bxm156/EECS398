@@ -5,6 +5,8 @@ from bitstring import Bits
 import serial
 import numpy
 import cStringIO
+import datetime
+import sys
 
 class SerialThread(TaskThread):
 
@@ -20,7 +22,7 @@ class SerialThread(TaskThread):
         self.connect()
 
     def connect(self):
-        self.serial_connection = serial.Serial(self.serial_path, timeout=1)
+        self.serial_connection = serial.Serial(self.serial_path, timeout=1, baudrate=115200)
 
     def cleanup(self):
         self.disconnect()
@@ -39,6 +41,7 @@ class SerialThread(TaskThread):
         line = self.serial_connection.readline()
         try:
             data = numpy.genfromtxt(cStringIO.StringIO(line), dtype=(int,int,int,float,float,float,float,float,float,float,float), delimiter=",")
+            datetime.datetime.fromtimestamp(int(data['f0']))
             p = Packet(
                 flags=int(data['f2']),
                 epoch=int(data['f0']),

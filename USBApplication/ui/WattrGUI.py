@@ -29,7 +29,7 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText8.Wrap( -1 )
 		bSizer7.Add( self.m_staticText8, 0, wx.ALL, 5 )
 		
-		self.device_conn_status = wx.StaticText( self, wx.ID_ANY, u"Connected on COM1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.device_conn_status = wx.StaticText( self, wx.ID_ANY, u"Connected", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.device_conn_status.Wrap( -1 )
 		bSizer7.Add( self.device_conn_status, 0, wx.ALL, 5 )
 		
@@ -136,21 +136,6 @@ class MainFrame ( wx.Frame ):
 		self.m_panel1.Layout()
 		bSizer6.Fit( self.m_panel1 )
 		self.m_notebook4.AddPage( self.m_panel1, u"Device", False )
-		self.m_panel4 = wx.Panel( self.m_notebook4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer61 = wx.BoxSizer( wx.VERTICAL )
-		
-		fgSizer2 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer2.SetFlexibleDirection( wx.BOTH )
-		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-		
-		
-		bSizer61.Add( fgSizer2, 1, wx.EXPAND, 5 )
-		
-		
-		self.m_panel4.SetSizer( bSizer61 )
-		self.m_panel4.Layout()
-		bSizer61.Fit( self.m_panel4 )
-		self.m_notebook4.AddPage( self.m_panel4, u"Graphs", False )
 		self.m_panel_stats = wx.Panel( self.m_notebook4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		m_panel_stats_box_sizer = wx.BoxSizer( wx.VERTICAL )
 		

@@ -11,7 +11,6 @@ from ui.WattrGraphPanel import WattrGraphPanel
 # Implementing AnimatedGraphDialog
 class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
 
-    data = []
     DEFAULT_X_MAX = 50
     DEFAULT_WIN_LENGTH = 50
 
@@ -32,6 +31,8 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         self.controls_sizer.Add(self.max_y) 
         self.controls_sizer.Fit(self)
         self.Fit()
+        
+        self.data = []
 
         self.redraw_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.on_redraw_timer, self.redraw_timer)
