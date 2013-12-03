@@ -55,10 +55,6 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
 
     def on_pause_button(self, evt):
         self.paused = not self.paused
-        if self.paused:
-            self.show_alert("Spike!")
-        else:
-            self.hide_alert()
 
     def on_update_pause_button(self, evt):
         text = "Resume" if self.paused else "Pause"
