@@ -74,7 +74,7 @@ class MainFrame ( wx.Frame ):
 		self.device_latest_current.Wrap( -1 )
 		fgSizer3.Add( self.device_latest_current, 0, wx.ALL, 5 )
 		
-		self.m_staticText81 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Period", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText81 = wx.StaticText( self.m_panel5, wx.ID_ANY, u"Frequency", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText81.Wrap( -1 )
 		fgSizer3.Add( self.m_staticText81, 0, wx.ALL, 5 )
 		
@@ -262,7 +262,7 @@ class MainFrame ( wx.Frame ):
 		
 		fgSizer12.Add( bSizer39, 1, wx.EXPAND, 5 )
 		
-		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Period", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText166 = wx.StaticText( self.m_panel_stats, wx.ID_ANY, u"Frequency", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText166.Wrap( -1 )
 		fgSizer12.Add( self.m_staticText166, 0, wx.ALL, 5 )
 		
@@ -523,21 +523,6 @@ class MainFrame ( wx.Frame ):
 		self.m_notebook4.AddPage( self.m_panel_stats, u"Statistics", False )
 		
 		bSizer1.Add( self.m_notebook4, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.m_button42 = wx.Button( self, wx.ID_ANY, u"Force Stop", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer10.Add( self.m_button42, 0, wx.ALL, 5 )
-		
-		
-		bSizer10.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
-		
-		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"ver 0.2", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText13.Wrap( -1 )
-		bSizer10.Add( self.m_staticText13, 0, wx.ALL, 5 )
-		
-		
-		bSizer1.Add( bSizer10, 0, wx.EXPAND, 5 )
 		
 		
 		self.SetSizer( bSizer1 )
