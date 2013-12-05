@@ -36,6 +36,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
 
         self.redraw_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.on_redraw_timer, self.redraw_timer)
+        self.dismiss_alert.Bind(wx.EVT_BUTTON, self.hide_alert)
         self.pause_button.Bind(wx.EVT_BUTTON, self.on_pause_button)
         self.pause_button.Bind(wx.EVT_UPDATE_UI, self.on_update_pause_button)
         self.show_grid.Bind(wx.EVT_CHECKBOX, self.on_show_grid)
@@ -46,7 +47,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         self.alert_panel.Show()
         self.Layout()
 
-    def hide_alert(self):
+    def hide_alert(self, evt=None):
         self.alert_panel.Hide()
         self.Layout()
 
@@ -78,7 +79,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         self.axes.xaxis.set_major_formatter(ticker.FuncFormatter(format_date))
 
     def draw_plot(self):
-        cols = zip(*self.data)
+        cols = zip(*self.data[-2000:])
         if not cols:
             print "No Data"
             return
@@ -86,7 +87,7 @@ class WattrAnimatedGraphDialog(WattrGUI.AnimatedGraphDialog):
         y_data = cols[1]
 
         if self.rtype == READING.VOLTAGE:
-            if max(y_data) > 121:
+            if max(y_data) > 126:
                 self.show_alert("Spike Detected!")
             if min(y_data) < 114:
                 self.show_alert("Sag Detected!")

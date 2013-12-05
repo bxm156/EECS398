@@ -819,7 +819,7 @@ class AnimatedGraphDialog ( wx.Dialog ):
 	def __init__( self, parent ):
 		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Graph", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHintsSz( wx.Size( -1,-1 ), wx.DefaultSize )
 		
 		bSizer23 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -834,6 +834,9 @@ class AnimatedGraphDialog ( wx.Dialog ):
 		self.alert_text = wx.StaticText( self.alert_panel, wx.ID_ANY, u"Spike Detected", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE )
 		self.alert_text.Wrap( -1 )
 		bSizer33.Add( self.alert_text, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.dismiss_alert = wx.Button( self.alert_panel, wx.ID_ANY, u"Dismiss", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer33.Add( self.dismiss_alert, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 		
 		
 		self.alert_panel.SetSizer( bSizer33 )
